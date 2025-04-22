@@ -29,6 +29,7 @@
       /* Custom Styles */
       body {
         font-family: "Inter", sans-serif;
+        overflow-x: hidden; /* Prevent horizontal scroll */
       }
       h1,
       h2,
@@ -44,142 +45,14 @@
         font-family: "Roboto", sans-serif;
       }
 
-      /* Custom Gradient for Buttons */
-      .gradient-button {
-        background: linear-gradient(135deg, #e3750c, #ff9232);
-        transition: all 0.3s ease;
-      }
-      .gradient-button:hover {
-        background: linear-gradient(135deg, #17191f, #e3750c);
-      }
-      .dark .gradient-button:hover {
-        background: linear-gradient(135deg, #ff9232, #e3750c);
-      }
-
-      /* Pulse Animation for CTA */
-      @keyframes pulse {
-        0% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.05);
-        }
-        100% {
-          transform: scale(1);
-        }
-      }
-      .animate-pulse-cta {
-        animation: pulse 2s infinite;
-      }
-
-      /* Card Hover Effect */
-      .feature-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      .feature-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-      }
-
       /* Smooth Scroll */
       html {
         scroll-behavior: smooth;
       }
 
-      /* Modal Styles */
-      .modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-      }
-      .modal-overlay.active {
-        opacity: 1;
-        visibility: visible;
-      }
-      .modal-content {
-        background: white;
-        dark: bg-gray-800;
-        padding: 2rem;
-        border-radius: 1rem;
-        max-width: 90%;
-        width: 400px;
-        text-align: center;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transform: scale(0.9);
-        transition: transform 0.3s ease;
-      }
-      .modal-overlay.active .modal-content {
-        transform: scale(1);
-      }
-      .dark .modal-content {
-        background: #1f2937;
-        color: #e5e7eb;
-      }
-      .modal-content h3 {
-        margin-bottom: 1rem;
-        font-size: 1.5rem;
-      }
-      .modal-content p {
-        margin-bottom: 1.5rem;
-        color: #4b5563;
-      }
-      .dark .modal-content p {
-        color: #d1d5db;
-      }
-      .modal-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-      }
-      .modal-buttons button {
-        padding: 0.75rem 1.5rem;
-        border-radius: 0.5rem;
-        font-size: 1rem;
-        transition: background 0.3s ease;
-      }
-      .modal-buttons .confirm-btn {
-        background: linear-gradient(135deg, #e3750c, #ff9232);
-        color: white;
-      }
-      .modal-buttons .confirm-btn:hover {
-        background: linear-gradient(135deg, #17191f, #e3750c);
-      }
-      .dark .modal-buttons .confirm-btn:hover {
-        background: linear-gradient(135deg, #ff9232, #e3750c);
-      }
-      .modal-buttons .cancel-btn {
-        background: #e5e7eb;
-        color: #1f2937;
-      }
-      .modal-buttons .cancel-btn:hover {
-        background: #d1d5db;
-      }
-      .dark .modal-buttons .cancel-btn {
-        background: #4b5563;
-        color: #e5e7eb;
-      }
-      .dark .modal-buttons .cancel-btn:hover {
-        background: #6b7280;
-      }
-
-      /* Focus Styles for Accessibility */
-      a:focus,
-      button:focus {
-        outline: 3px solid #ff9232;
-        outline-offset: 2px;
-      }
-      .modal-buttons button:focus {
-        outline-offset: 4px;
+      /* Navbar Link Hover Effect */
+      #nav-links a:hover {
+        transform: translateY(-2px);
       }
     </style>
   </head>
@@ -189,25 +62,36 @@
     <!-- Download Confirmation Modal -->
     <div
       id="download-modal"
-      class="modal-overlay"
+      class="fixed inset-0 bg-black/60 flex justify-center items-center z-[1000] opacity-0 invisible transition-opacity duration-300"
       role="dialog"
       aria-labelledby="modal-title"
       aria-modal="true"
     >
-      <div class="modal-content">
-        <h3 id="modal-title" class="text-gray-900 dark:text-white">
+      <div
+        class="modal-content bg-white dark:bg-gray-800 p-8 rounded-xl max-w-[90%] w-[400px] text-center shadow-lg transform scale-90 transition-transform duration-300"
+      >
+        <h3
+          id="modal-title"
+          class="text-gray-900 dark:text-white text-2xl mb-4"
+        >
           Confirm Download
         </h3>
-        <p class="font-lato">
+        <p class="font-lato text-gray-600 dark:text-gray-300 mb-6">
           You're about to download K.Y.S Password Manager. This app provides
           basic encryption and relies on you to secure your device. Are you sure
           you want to proceed?
         </p>
-        <div class="modal-buttons">
-          <button class="confirm-btn font-roboto" id="confirm-download">
+        <div class="flex justify-center gap-4">
+          <button
+            id="confirm-download"
+            class="font-roboto px-6 py-3 bg-gradient-to-br from-kys-orange to-kys-orange-light text-white rounded-lg hover:from-gray-900 hover:to-kys-orange dark:hover:from-kys-orange-light dark:hover:to-kys-orange focus:outline focus:outline-3 focus:outline-offset-4 focus:outline-kys-orange-light"
+          >
             Confirm Download
           </button>
-          <button class="cancel-btn font-roboto" id="cancel-download">
+          <button
+            id="cancel-download"
+            class="font-roboto px-6 py-3 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-500 focus:outline focus:outline-3 focus:outline-offset-4 focus:outline-kys-orange-light"
+          >
             Cancel
           </button>
         </div>
@@ -231,48 +115,86 @@
             >K.Y.S</span
           >
         </div>
-        <div class="flex items-center space-x-6">
-          <a
-            href="#features"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            >Features</a
+        <!-- Hamburger Menu Button (Visible on Mobile) -->
+        <button
+          id="menu-toggle"
+          class="md:hidden p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 hover:bg-kys-orange-light hover:text-white transition duration-200"
+          aria-label="Toggle navigation menu"
+        >
+          <i
+            id="menu-icon"
+            data-lucide="menu"
+            class="w-6 h-6"
+            aria-hidden="true"
+          ></i>
+        </button>
+        <!-- Sidebar Backdrop (Visible on Mobile when Sidebar is Open) -->
+        <div
+          id="sidebar-backdrop"
+          class="fixed inset-0 bg-black/50 hidden z-30 transition-opacity duration-300"
+        ></div>
+        <!-- Navigation Links (Sidebar on Mobile, Horizontal on Desktop) -->
+        <div
+          id="nav-links"
+          class="fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg transform -translate-x-full md:transform-none md:static md:h-auto md:w-auto md:bg-transparent dark:md:bg-transparent md:shadow-none transition-transform duration-300 z-40"
+        >
+          <ul
+            class="flex flex-col md:flex-row md:items-center md:space-x-6 p-6 md:p-0"
           >
-          <a
-            href="src/components/team.html"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            >Team</a
-          >
-          <a
-            href="#security"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            >Security</a
-          >
-          <a
-            href="#testimonials"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            >Testimonials</a
-          >
-          <a
-            href="#download"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            >Download</a
-          >
-          <button
-            id="theme-toggle"
-            class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 hover:bg-orange-500 hover:text-white transition duration-200"
-            aria-label="Toggle between light and dark theme"
-          >
-            <i
-              data-lucide="sun"
-              class="block dark:hidden w-6 h-6"
-              aria-hidden="true"
-            ></i>
-            <i
-              data-lucide="moon"
-              class="hidden dark:block w-6 h-6"
-              aria-hidden="true"
-            ></i>
-          </button>
+            <li class="w-full md:w-auto">
+              <a
+                href="#features"
+                class="block text-gray-600 dark:text-gray-300 hover:text-kys-orange-medium transition duration-200 py-3 md:py-0 text-center md:text-left focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
+                >Features</a
+              >
+            </li>
+            <li class="w-full md:w-auto">
+              <a
+                href="src/components/team.html"
+                class="block text-gray-600 dark:text-gray-300 hover:text-kys-orange-medium transition duration-200 py-3 md:py-0 text-center md:text-left focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
+                >Team</a
+              >
+            </li>
+            <li class="w-full md:w-auto">
+              <a
+                href="#security"
+                class="block text-gray-600 dark:text-gray-300 hover:text-kys-orange-medium transition duration-200 py-3 md:py-0 text-center md:text-left focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
+                >Security</a
+              >
+            </li>
+            <li class="w-full md:w-auto">
+              <a
+                href="#testimonials"
+                class="block text-gray-600 dark:text-gray-300 hover:text-kys-orange-medium transition duration-200 py-3 md:py-0 text-center md:text-left focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
+                >Testimonials</a
+              >
+            </li>
+            <li class="w-full md:w-auto">
+              <a
+                href="#download"
+                class="block text-gray-600 dark:text-gray-300 hover:text-kys-orange-medium transition duration-200 py-3 md:py-0 text-center md:text-left focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
+                >Download</a
+              >
+            </li>
+            <li class="w-full md:w-auto">
+              <button
+                id="theme-toggle"
+                class="block p-2 mt-3 md:mt-0 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 hover:bg-kys-orange-light hover:text-white transition duration-200 mx-auto md:mx-0 focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
+                aria-label="Toggle between light and dark theme"
+              >
+                <i
+                  data-lucide="sun"
+                  class="block dark:hidden w-6 h-6"
+                  aria-hidden="true"
+                ></i>
+                <i
+                  data-lucide="moon"
+                  class="hidden dark:block w-6 h-6"
+                  aria-hidden="true"
+                ></i>
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
@@ -301,18 +223,18 @@
           <p
             class="text-xl md:text-2xl mb-4 text-gray-600 dark:text-gray-300 font-lato"
           >
-            Your Security, Your Responsibility
+            <span id="typed-text"></span>
           </p>
           <p
             class="text-lg mb-8 text-gray-500 dark:text-gray-400 font-lato max-w-2xl mx-auto"
           >
             A lightweight password manager with basic local encryption. Take
-            control of your digital security—because it’s up to you to keep your
+            control of your digital security—because it's up to you to keep your
             device safe.
           </p>
           <button
             data-download-link="https://www.dropbox.com/scl/fi/71l015pbawrwgf2zwpmfx/K.Y.S-Password-Manager-Setup-2.0.0.exe?rlkey=el807d5a6ystfoz8v7geu549x&st=kmhlw4lx&dl=1"
-            class="download-btn inline-block px-8 py-4 gradient-button text-white rounded-full text-lg font-roboto shadow-lg animate-pulse-cta"
+            class="download-btn inline-block px-8 py-4 bg-gradient-to-br from-kys-orange to-kys-orange-light text-white rounded-full text-lg font-roboto shadow-lg animate-[pulse_2s_infinite] focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
             aria-label="Download K.Y.S Password Manager for Windows"
           >
             Download Now
@@ -332,13 +254,13 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Feature 1: Local Encryption -->
             <div
-              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg text-center"
+              class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg text-center transition-transform hover:-translate-y-1 hover:shadow-xl"
               data-aos="fade-up"
               data-aos-delay="100"
             >
               <i
                 data-lucide="lock"
-                class="w-12 h-12 mx-auto mb-4 text-orange-500"
+                class="w-12 h-12 mx-auto mb-4 text-kys-orange-medium"
                 aria-hidden="true"
               ></i>
               <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
@@ -351,13 +273,13 @@
             </div>
             <!-- Feature 2: Easy Organization -->
             <div
-              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg text-center"
+              class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg text-center transition-transform hover:-translate-y-1 hover:shadow-xl"
               data-aos="fade-up"
               data-aos-delay="200"
             >
               <i
                 data-lucide="filter"
-                class="w-12 h-12 mx-auto mb-4 text-orange-500"
+                class="w-12 h-12 mx-auto mb-4 text-kys-orange-medium"
                 aria-hidden="true"
               ></i>
               <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
@@ -370,13 +292,13 @@
             </div>
             <!-- Feature 3: Intuitive Interface -->
             <div
-              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg text-center"
+              class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg text-center transition-transform hover:-translate-y-1 hover:shadow-xl"
               data-aos="fade-up"
               data-aos-delay="300"
             >
               <i
                 data-lucide="search"
-                class="w-12 h-12 mx-auto mb-4 text-orange-500"
+                class="w-12 h-12 mx-auto mb-4 text-kys-orange-medium"
                 aria-hidden="true"
               ></i>
               <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
@@ -405,13 +327,13 @@
             </h2>
             <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 font-lato">
               K.Y.S Password Manager stores your data locally in an encrypted
-              JSON file. With no master password, it’s up to you to ensure your
+              JSON file. With no master password, it's up to you to ensure your
               device remains secure—empowering you to take full control of your
               privacy.
             </p>
             <a
               href="#download"
-              class="inline-block px-6 py-3 gradient-button text-white rounded-full font-roboto shadow-lg"
+              class="inline-block px-6 py-3 bg-gradient-to-br from-kys-orange to-kys-orange-light text-white rounded-full font-roboto shadow-lg hover:from-gray-900 hover:to-kys-orange dark:hover:from-kys-orange-light dark:hover:to-kys-orange focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
             >
               Get Started
             </a>
@@ -420,7 +342,7 @@
             <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-6 shadow-lg">
               <i
                 data-lucide="shield"
-                class="w-16 h-16 mx-auto mb-4 text-orange-500"
+                class="w-16 h-16 mx-auto mb-4 text-kys-orange-medium"
                 aria-hidden="true"
               ></i>
               <p class="text-center text-gray-600 dark:text-gray-300 font-lato">
@@ -486,7 +408,7 @@
           </p>
           <button
             data-download-link="https://www.dropbox.com/scl/fi/71l015pbawrwgf2zwpmfx/K.Y.S-Password-Manager-Setup-2.0.0.exe?rlkey=el807d5a6ystfoz8v7geu549x&st=kmhlw4lx&dl=1"
-            class="download-btn inline-block px-8 py-4 gradient-button text-white rounded-full text-lg font-roboto shadow-lg animate-pulse-cta"
+            class="download-btn inline-block px-8 py-4 bg-gradient-to-br from-kys-orange to-kys-orange-light text-white rounded-full text-lg font-roboto shadow-lg animate-[pulse_2s_infinite] focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
             aria-label="Download K.Y.S Password Manager for Windows"
           >
             Download for Windows
@@ -527,21 +449,21 @@
               <li>
                 <a
                   href="#features"
-                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  class="hover:text-kys-orange-medium transition duration-200 font-roboto focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
                   >Features</a
                 >
               </li>
               <li>
                 <a
                   href="#security"
-                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  class="hover:text-kys-orange-medium transition duration-200 font-roboto focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
                   >Security</a
                 >
               </li>
               <li>
                 <a
                   href="#download"
-                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  class="hover:text-kys-orange-medium transition duration-200 font-roboto focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
                   >Download</a
                 >
               </li>
@@ -553,21 +475,21 @@
               <li>
                 <a
                   href="#"
-                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  class="hover:text-kys-orange-medium transition duration-200 font-roboto focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
                   >Privacy Policy</a
                 >
               </li>
               <li>
                 <a
                   href="#"
-                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  class="hover:text-kys-orange-medium transition duration-200 font-roboto focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
                   >Terms of Service</a
                 >
               </li>
               <li>
                 <a
                   href="mailto:your-email@example.com"
-                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  class="hover:text-kys-orange-medium transition duration-200 font-roboto focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
                   >Contact Us</a
                 >
               </li>
@@ -581,6 +503,96 @@
     </footer>
 
     <!-- JavaScript -->
+    <script>
+      // Initialize Lucide icons
+      lucide.createIcons();
+
+      // Sidebar functionality
+      const menuToggle = document.getElementById("menu-toggle");
+      const navLinks = document.getElementById("nav-links");
+      const menuIcon = document.getElementById("menu-icon");
+      const sidebarBackdrop = document.getElementById("sidebar-backdrop");
+      const navLinkItems = navLinks.querySelectorAll("a, button");
+
+      // Toggle sidebar and backdrop
+      function toggleSidebar() {
+        const isOpen = navLinks.classList.contains("translate-x-0");
+        if (isOpen) {
+          navLinks.classList.remove("translate-x-0");
+          navLinks.classList.add("-translate-x-full");
+          sidebarBackdrop.classList.add("hidden");
+          menuIcon.setAttribute("data-lucide", "menu");
+          menuToggle.focus(); // Return focus to toggle button
+        } else {
+          navLinks.classList.remove("-translate-x-full");
+          navLinks.classList.add("translate-x-0");
+          sidebarBackdrop.classList.remove("hidden");
+          navLinkItems[0].focus(); // Focus on first link
+        }
+        lucide.createIcons();
+      }
+
+      // Close sidebar on link click (mobile)
+      navLinkItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          if (window.innerWidth < 768) {
+            navLinks.classList.remove("translate-x-0");
+            navLinks.classList.add("-translate-x-full");
+            sidebarBackdrop.classList.add("hidden");
+            menuIcon.setAttribute("data-lucide", "menu");
+            lucide.createIcons();
+          }
+        });
+      });
+
+      // Close sidebar on backdrop click
+      sidebarBackdrop.addEventListener("click", () => {
+        navLinks.classList.remove("translate-x-0");
+        navLinks.classList.add("-translate-x-full");
+        sidebarBackdrop.classList.add("hidden");
+        menuIcon.setAttribute("data-lucide", "menu");
+        lucide.createIcons();
+        menuToggle.focus();
+      });
+
+      // Handle click and keyboard events for menu toggle
+      menuToggle.addEventListener("click", toggleSidebar);
+      menuToggle.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleSidebar();
+        }
+      });
+
+      // Focus trapping within sidebar
+      navLinks.addEventListener("keydown", (e) => {
+        const focusableElements = navLinks.querySelectorAll("a, button");
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.key === "Tab") {
+          if (e.shiftKey && document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          } else if (!e.shiftKey && document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        } else if (e.key === "Escape") {
+          toggleSidebar();
+        }
+      });
+
+      // Reset sidebar state on window resize
+      window.addEventListener("resize", () => {
+        if (window.innerWidth >= 768) {
+          navLinks.classList.remove("-translate-x-full", "translate-x-0");
+          sidebarBackdrop.classList.add("hidden");
+          menuIcon.setAttribute("data-lucide", "menu");
+          lucide.createIcons();
+        }
+      });
+    </script>
     <script src="src/scripts/main.js"></script>
     <script src="src/scripts/theme-toggle.js"></script>
     <script src="src/scripts/typed-animation.js"></script>
