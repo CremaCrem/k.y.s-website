@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Meet the team behind K.Y.S Password Manager - Christian Paladan, Jeremy Jamer, John Luis, and Andrew Refina."
+    />
+    <meta
+      name="keywords"
+      content="KYS team, password manager team, Christian Paladan, Jeremy Jamer, John Luis, Andrew Refina"
+    />
+    <title>Meet the Team - K.Y.S Password Manager</title>
+    <link
+      rel="icon"
+      href="../../public/assets/images/logo.png"
+      type="image/png"
+    />
+    <!-- Tailwind CSS (Output from CLI) -->
+    <link href="../../public/output.css" rel="stylesheet" />
+    <!-- AOS (Animate on Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+      /* Fonts (Same as index.html) */
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700&family=Lato:wght@400&family=Roboto:wght@400&display=swap");
+
+      /* Custom Styles */
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Montserrat", sans-serif;
+      }
+      .font-lato {
+        font-family: "Lato", sans-serif;
+      }
+      .font-roboto {
+        font-family: "Roboto", sans-serif;
+      }
+
+      /* Card styles */
+      .team-card {
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .team-card:hover {
+        transform: scale(1.05);
+        z-index: 10;
+      }
+      .team-card .static-content {
+        height: 100%;
+      }
+      .team-card .static-content img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .team-card .static-info {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.8) 0%,
+          transparent 100%
+        );
+        color: white;
+      }
+      .team-card .hover-content {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.9);
+        padding: 1.5rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        color: white;
+      }
+      .team-card:hover .hover-content,
+      .team-card:focus-within .hover-content {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-gray-100 transition-colors duration-300">
+    <!-- Team Section -->
+    <section
+      class="min-h-screen flex items-center justify-center py-16 bg-gradient-to-br from-gray-800 to-gray-900"
+    >
+      <div class="container mx-auto px-4">
+        <!-- Team Heading -->
+        <h2
+          class="text-4xl font-bold text-center mb-12 text-white"
+          data-aos="fade-up"
+        >
+          Meet the Team Behind K.Y.S
+        </h2>
+
+        <!-- Team Cards -->
+        <div class="flex flex-wrap justify-center gap-8">
+          <!-- Christian Paladan - Leader -->
+          <div
+            class="team-card w-[300px] h-[400px] rounded-lg overflow-hidden border-2 border-transparent hover:shadow-xl hover:border-kys-orange-light"
+            data-aos="fade-up"
+            data-aos-delay="100"
+            tabindex="0"
+            role="article"
+            aria-labelledby="christian-name"
+            aria-describedby="christian-bio"
+          >
+            <!-- Static Content (Photo with overlay text) -->
+            <div class="static-content">
+              <img
+                src="../../public/assets/images/christian-paladan.jpg"
+                alt="Christian Paladan, Team Leader of K.Y.S Password Manager"
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div class="static-info">
+                <h3 id="christian-name-static" class="text-lg font-bold">
+                  Christian Paladan
+                </h3>
+                <p class="font-roboto text-kys-orange-light">Team Leader</p>
+              </div>
+            </div>
+
+            <!-- Hover Content (Hidden by default) -->
+            <div class="hover-content flex flex-col justify-center">
+              <h3 id="christian-name" class="text-2xl font-bold mb-2">
+                Christian Paladan
+              </h3>
+              <p class="font-roboto text-kys-orange-light text-lg mb-4">
+                Team Leader
+              </p>
+              <div id="christian-bio">
+                <p class="font-lato text-gray-300 mb-2">
+                  <strong>Contributions:</strong> Christian spearheaded the
+                  project, coordinating tasks and ensuring the app's vision of
+                  user empowerment was met.
+                </p>
+                <p class="font-lato text-gray-300">
+                  <strong>Achievements:</strong> Successfully led the team to
+                  deliver K.Y.S on time, fostering a collaborative and
+                  innovative environment.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Jeremy Jamer - Main Programmer -->
+          <div
+            class="team-card w-[300px] h-[400px] rounded-lg overflow-hidden border-2 border-transparent hover:shadow-xl hover:border-kys-orange-light"
+            data-aos="fade-up"
+            data-aos-delay="200"
+            tabindex="0"
+            role="article"
+            aria-labelledby="jeremy-name"
+            aria-describedby="jeremy-bio"
+          >
+            <!-- Static Content -->
+            <div class="static-content">
+              <img
+                src="../../public/assets/images/jeremy-jamer.jpg"
+                alt="Jeremy Jamer, Main Programmer of K.Y.S Password Manager"
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div class="static-info">
+                <h3 id="jeremy-name-static" class="text-lg font-bold">
+                  Jeremy Jamer
+                </h3>
+                <p class="font-roboto text-kys-orange-light">Main Programmer</p>
+              </div>
+            </div>
+
+            <!-- Hover Content -->
+            <div class="hover-content flex flex-col justify-center">
+              <h3 id="jeremy-name" class="text-2xl font-bold mb-2">
+                Jeremy Jamer
+              </h3>
+              <p class="font-roboto text-kys-orange-light text-lg mb-4">
+                Main Programmer
+              </p>
+              <div id="jeremy-bio">
+                <p class="font-lato text-gray-300 mb-2">
+                  <strong>Contributions:</strong> Jeremy developed the core
+                  functionality of K.Y.S, implementing local encryption and a
+                  user-friendly interface.
+                </p>
+                <p class="font-lato text-gray-300">
+                  <strong>Achievements:</strong> Optimized the app for
+                  performance, ensuring it runs smoothly on various Windows
+                  systems.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- John Luis - Marketing -->
+          <div
+            class="team-card w-[300px] h-[400px] rounded-lg overflow-hidden border-2 border-transparent hover:shadow-xl hover:border-kys-orange-light"
+            data-aos="fade-up"
+            data-aos-delay="300"
+            tabindex="0"
+            role="article"
+            aria-labelledby="john-name"
+            aria-describedby="john-bio"
+          >
+            <!-- Static Content -->
+            <div class="static-content">
+              <img
+                src="../../public/assets/images/john-luis.jpg"
+                alt="John Luis, Marketing Lead of K.Y.S Password Manager"
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div class="static-info">
+                <h3 id="john-name-static" class="text-lg font-bold">
+                  John Luis
+                </h3>
+                <p class="font-roboto text-kys-orange-light">Marketing Lead</p>
+              </div>
+            </div>
+
+            <!-- Hover Content -->
+            <div class="hover-content flex flex-col justify-center">
+              <h3 id="john-name" class="text-2xl font-bold mb-2">John Luis</h3>
+              <p class="font-roboto text-kys-orange-light text-lg mb-4">
+                Marketing Lead
+              </p>
+              <div id="john-bio">
+                <p class="font-lato text-gray-300 mb-2">
+                  <strong>Contributions:</strong> John crafted the marketing
+                  strategy, emphasizing the slogan "Your security, your
+                  responsibility."
+                </p>
+                <p class="font-lato text-gray-300">
+                  <strong>Achievements:</strong> Increased user awareness
+                  through targeted campaigns, driving initial downloads and
+                  engagement.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Andrew Refina - UX/UI Designer -->
+          <div
+            class="team-card w-[300px] h-[400px] rounded-lg overflow-hidden border-2 border-transparent hover:shadow-xl hover:border-kys-orange-light"
+            data-aos="fade-up"
+            data-aos-delay="400"
+            tabindex="0"
+            role="article"
+            aria-labelledby="andrew-name"
+            aria-describedby="andrew-bio"
+          >
+            <!-- Static Content -->
+            <div class="static-content">
+              <img
+                src="../../public/assets/images/andrew-refina.jpg"
+                alt="Andrew Refina, UX/UI Designer of K.Y.S Password Manager"
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div class="static-info">
+                <h3 id="andrew-name-static" class="text-lg font-bold">
+                  Andrew Refina
+                </h3>
+                <p class="font-roboto text-kys-orange-light">UX/UI Designer</p>
+              </div>
+            </div>
+
+            <!-- Hover Content -->
+            <div class="hover-content flex flex-col justify-center">
+              <h3 id="andrew-name" class="text-2xl font-bold mb-2">
+                Andrew Refina
+              </h3>
+              <p class="font-roboto text-kys-orange-light text-lg mb-4">
+                UX/UI Designer
+              </p>
+              <div id="andrew-bio">
+                <p class="font-lato text-gray-300 mb-2">
+                  <strong>Contributions:</strong> Andrew designed the intuitive
+                  UI for K.Y.S, ensuring a seamless user experience across the
+                  app and website.
+                </p>
+                <p class="font-lato text-gray-300">
+                  <strong>Achievements:</strong> Created a visually appealing
+                  design system that reflects the app's focus on user
+                  empowerment.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Back to Home Link -->
+        <div class="mt-32 text-center">
+          <a
+            href="../../index.html"
+            class="inline-block px-6 py-3 bg-gradient-to-r from-kys-orange to-kys-orange-light text-white text-lg rounded-full font-roboto shadow-lg hover:from-gray-900 hover:to-kys-orange focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
+            aria-label="Navigate back to the home page"
+          >
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Initialize AOS -->
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>
