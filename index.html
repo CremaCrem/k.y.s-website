@@ -316,6 +316,11 @@
             >Testimonials</a
           >
           <a
+            href="src/components/usability-testing.html"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            >Usability Testing</a
+          >
+          <a
             href="#download"
             class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
             >Download</a
@@ -383,6 +388,12 @@
             class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
             onclick="toggleMobileMenu()"
             >Testimonials</a
+          >
+          <a
+            href="src/components/usability-testing.html"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            onclick="toggleMobileMenu()"
+            >Usability Testing</a
           >
           <a
             href="#download"
@@ -699,7 +710,7 @@
               </li>
               <li>
                 <a
-                  href="mailto:your-email@example.com"
+                  href="/cdn-cgi/l/email-protection#f68f99838ad59d95999b9ef69b869b978a969fd89f989a"
                   class="hover:text-orange-500 transition duration-200 font-roboto"
                   >Contact Us</a
                 >
@@ -714,6 +725,10 @@
     </footer>
 
     <!-- JavaScript -->
+    <script
+      data-cfasync="false"
+      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
     <script src="src/scripts/main.js"></script>
     <script src="src/scripts/theme-toggle.js"></script>
     <script src="src/scripts/typed-animation.js"></script>
@@ -777,6 +792,41 @@
       mobileThemeToggle.addEventListener("click", () => {
         document.getElementById("theme-toggle").click();
       });
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'9356cea64eecb0d9',t:'MTc0NTUxMDM2MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
     </script>
   </body>
 </html>

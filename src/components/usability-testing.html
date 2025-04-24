@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="Usability Testing for K.Y.S Password Manager - Participant details, DECIDE framework, tasks, results, and improvements."
+    />
+    <meta
+      name="keywords"
+      content="usability testing, KYS password manager, DECIDE framework, user testing"
+    />
+    <title>K.Y.S Password Manager - Usability Testing</title>
+    <link rel="icon" href="../public/assets/images/logo.png" type="image/png" />
+    <!-- Tailwind CSS (Output from CLI) -->
+    <link href="../../public/output.css" rel="stylesheet" />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- AOS (Animate on Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+      /* Fonts */
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700&family=Lato:wght@400&family=Roboto:wght@400&display=swap");
+
+      /* Custom Styles */
+      body {
+        font-family: "Inter", sans-serif;
+        overflow-x: hidden;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Montserrat", sans-serif;
+      }
+      p {
+        font-family: "Lato", sans-serif;
+      }
+      button,
+      a.button,
+      nav a {
+        font-family: "Roboto", sans-serif;
+      }
+
+      /* Custom Gradient for Buttons */
+      .gradient-button {
+        background: linear-gradient(135deg, #e3750c, #ff9232);
+        transition: all 0.3s ease;
+      }
+      .gradient-button:hover {
+        background: linear-gradient(135deg, #17191f, #e3750c);
+      }
+      .dark .gradient-button:hover {
+        background: linear-gradient(135deg, #ff9232, #e3750c);
+      }
+
+      /* Card Hover Effect */
+      .feature-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Smooth Scroll */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Modal Styles for Video */
+      .video-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+      .video-modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .video-modal-content {
+        background: #1f2937;
+        padding: 1rem;
+        border-radius: 1rem;
+        max-width: 90%;
+        width: 800px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+      }
+      .video-modal-overlay.active .video-modal-content {
+        transform: scale(1);
+      }
+      .video-modal-content iframe {
+        width: 100%;
+        height: 450px;
+        border: none;
+      }
+      .video-modal-content button {
+        margin-top: 1rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        background: #e5e7eb;
+        color: #1f2937;
+        transition: background 0.3s ease;
+      }
+      .video-modal-content button:hover {
+        background: #d1d5db;
+      }
+      .dark .video-modal-content button {
+        background: #4b5563;
+        color: #e5e7eb;
+      }
+      .dark .video-modal-content button:hover {
+        background: #6b7280;
+      }
+
+      /* Collapsible Section */
+      .collapsible-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      .collapsible-content.active {
+        max-height: 1000px; /* Adjust based on content */
+      }
+
+      /* Focus Styles for Accessibility */
+      a:focus,
+      button:focus {
+        outline: 3px solid #ff9232;
+        outline-offset: 2px;
+      }
+
+      /* Sidebar Styles */
+      #mobile-menu {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      #mobile-menu.active {
+        transform: translateX(0);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .container {
+          width: 100%;
+          padding-right: 15px;
+          padding-left: 15px;
+          margin-right: auto;
+          margin-left: auto;
+        }
+        #mobile-menu {
+          width: 80%;
+        }
+        img,
+        video,
+        iframe {
+          max-width: 100%;
+          height: auto;
+        }
+        h1 {
+          font-size: 2.5rem;
+        }
+        h2 {
+          font-size: 2rem;
+        }
+        .feature-card h3 {
+          font-size: 1.25rem;
+        }
+        .gradient-button {
+          padding: 0.75rem 1.5rem;
+          font-size: 1rem;
+        }
+        .video-modal-content iframe {
+          height: 300px;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300"
+  >
+    <!-- Video Modal -->
+    <div
+      id="video-modal"
+      class="video-modal-overlay"
+      role="dialog"
+      aria-labelledby="video-modal-title"
+      aria-modal="true"
+    >
+      <div class="video-modal-content">
+        <h3
+          id="video-modal-title"
+          class="text-white font-montserrat text-xl mb-4"
+        >
+          Video Player
+        </h3>
+        <iframe
+          id="video-iframe"
+          src=""
+          title="Usability Testing Video"
+        ></iframe>
+        <button
+          id="close-video-modal"
+          class="font-roboto"
+          aria-label="Close video modal"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav
+      class="fixed top-0 left-0 w-full bg-white dark:bg-gray-800 shadow-lg z-50"
+    >
+      <div
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <div class="flex items-center">
+          <button
+            id="hamburger-btn"
+            class="md:hidden p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            aria-label="Toggle mobile menu"
+          >
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+          <img
+            src="../../public/assets/images/logo.png"
+            alt="K.Y.S Password Manager Logo"
+            class="h-10 mr-3 ml-2"
+          />
+          <span class="text-2xl font-bold text-gray-900 dark:text-white"
+            >K.Y.S</span
+          >
+        </div>
+        <div class="hidden md:flex items-center space-x-6">
+          <a
+            href="../../index.html#features"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            >Features</a
+          >
+          <a
+            href="team.html"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            >Team</a
+          >
+          <a
+            href="../../index.html#security"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            >Security</a
+          >
+          <a
+            href="../../index.html#testimonials"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            >Testimonials</a
+          >
+          <a
+            href="usability-testing.html"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            >Usability Testing</a
+          >
+          <a
+            href="../../index.html#download"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            >Download</a
+          >
+          <button
+            id="theme-toggle"
+            class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 hover:bg-orange-500 hover:text-white transition duration-200 w-10 h-10 flex items-center justify-center"
+            aria-label="Toggle between light and dark theme"
+          >
+            <i
+              data-lucide="sun"
+              class="block dark:hidden w-6 h-6"
+              aria-hidden="true"
+            ></i>
+            <i
+              data-lucide="moon"
+              class="hidden dark:block w-6 h-6"
+              aria-hidden="true"
+            ></i>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg z-50 md:hidden"
+        role="dialog"
+        aria-label="Mobile navigation menu"
+      >
+        <div
+          class="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700"
+        >
+          <span class="text-xl font-bold text-gray-900 dark:text-white"
+            >K.Y.S</span
+          >
+          <button
+            id="close-menu-btn"
+            class="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            aria-label="Close mobile menu"
+          >
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+        <div class="flex flex-col p-4 space-y-4">
+          <a
+            href="../index.html#features"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            onclick="toggleMobileMenu()"
+            >Features</a
+          >
+          <a
+            href="team.html"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            onclick="toggleMobileMenu()"
+            >Team</a
+          >
+          <a
+            href="../index.html#security"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            onclick="toggleMobileMenu()"
+            >Security</a
+          >
+          <a
+            href="../index.html#testimonials"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            onclick="toggleMobileMenu()"
+            >Testimonials</a
+          >
+          <a
+            href="usability-testing.html"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            onclick="toggleMobileMenu()"
+            >Usability Testing</a
+          >
+          <a
+            href="../index.html#download"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            onclick="toggleMobileMenu()"
+            >Download</a
+          >
+          <button
+            id="mobile-theme-toggle"
+            class="p-1 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 hover:bg-orange-500 hover:text-white transition duration-200 w-8 h-8 flex items-center justify-center"
+            aria-label="Toggle between light and dark theme"
+          >
+            <i
+              data-lucide="sun"
+              class="block dark:hidden w-5 h-5"
+              aria-hidden="true"
+            ></i>
+            <i
+              data-lucide="moon"
+              class="hidden dark:block w-5 h-5"
+              aria-hidden="true"
+            ></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-16">
+      <!-- Hero Section -->
+      <section
+        class="py-16 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 text-center"
+      >
+        <div
+          class="container mx-auto px-4"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+        >
+          <h1
+            class="text-5xl md:text-6xl font-bold mb-4 text-gray-900 dark:text-white"
+          >
+            Usability Testing for K.Y.S
+          </h1>
+          <p
+            class="text-lg text-gray-600 dark:text-gray-300 mb-8 font-lato max-w-2xl mx-auto"
+          >
+            Explore the comprehensive usability testing process for K.Y.S
+            Password Manager, including participant details, methodologies,
+            tasks, results, and improvements.
+          </p>
+        </div>
+      </section>
+
+      <!-- Participant Background and Recruitment -->
+      <section id="participants" class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+          <h2
+            class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+            data-aos="fade-up"
+          >
+            Participant Background & Recruitment
+          </h2>
+          <div
+            class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <button
+              class="collapsible-btn w-full text-left text-2xl font-bold mb-4 text-gray-900 dark:text-white flex items-center justify-between"
+              aria-expanded="false"
+              aria-controls="participants-content"
+            >
+              Participant Demographics
+              <i data-lucide="chevron-down" class="w-6 h-6"></i>
+            </button>
+            <div id="participants-content" class="collapsible-content">
+              <p class="text-gray-600 dark:text-gray-300 font-lato mb-4">
+                We recruited 10 participants aged 18–45, with varying levels of
+                technical expertise (3 beginners, 4 intermediate, 3 advanced).
+                Participants included students, professionals, and casual users
+                who regularly manage passwords.
+              </p>
+              <ul
+                class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+              >
+                <li>Age Range: 18–45 years</li>
+                <li>Gender: 6 female, 4 male</li>
+                <li>Occupations: Students, IT professionals, office workers</li>
+                <li>Tech Familiarity: Beginner to advanced</li>
+              </ul>
+            </div>
+          </div>
+          <div
+            class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg mt-8"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <button
+              class="collapsible-btn w-full text-left text-2xl font-bold mb-4 text-gray-900 dark:text-white flex items-center justify-between"
+              aria-expanded="false"
+              aria-controls="recruitment-content"
+            >
+              Recruitment Process
+              <i data-lucide="chevron-down" class="w-6 h-6"></i>
+            </button>
+            <div id="recruitment-content" class="collapsible-content">
+              <p class="text-gray-600 dark:text-gray-300 font-lato">
+                Participants were recruited via university mailing lists, social
+                media, and local tech meetups. Screening ensured a diverse group
+                familiar with password management tools. Consent forms were
+                signed, and participants were compensated with a $20 gift card.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DECIDE Framework -->
+      <section id="decide" class="py-16 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+          <h2
+            class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+            data-aos="fade-up"
+          >
+            DECIDE Framework
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div
+              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+                Overview
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 font-lato">
+                The DECIDE framework guided our usability testing to ensure a
+                structured approach: <strong>Determine</strong> goals,
+                <strong>Explore</strong> questions,
+                <strong>Choose</strong> methods,
+                <strong>Identify</strong> practical issues,
+                <strong>Decide</strong> on ethics, and
+                <strong>Evaluate</strong> data.
+              </p>
+            </div>
+            <div
+              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <button
+                class="collapsible-btn w-full text-left text-2xl font-bold mb-4 text-gray-900 dark:text-white flex items-center justify-between"
+                aria-expanded="false"
+                aria-controls="decide-details"
+              >
+                Detailed Breakdown
+                <i data-lucide="chevron-down" class="w-6 h-6"></i>
+              </button>
+              <div id="decide-details" class="collapsible-content">
+                <ul
+                  class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+                >
+                  <li>
+                    <strong>Determine:</strong> Improve user experience and
+                    interface efficiency.
+                  </li>
+                  <li>
+                    <strong>Explore:</strong> How intuitive is the interface?
+                    Are tasks completed efficiently?
+                  </li>
+                  <li>
+                    <strong>Choose:</strong> Task-based testing, observation,
+                    and post-test interviews.
+                  </li>
+                  <li>
+                    <strong>Identify:</strong> Time constraints, participant
+                    availability, and testing environment.
+                  </li>
+                  <li>
+                    <strong>Decide:</strong> Ensured informed consent and data
+                    anonymity.
+                  </li>
+                  <li>
+                    <strong>Evaluate:</strong> Analyzed task completion rates,
+                    time, and user feedback.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tasks and Scenarios -->
+      <section id="tasks" class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+          <h2
+            class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+            data-aos="fade-up"
+          >
+            Tasks & Scenarios
+          </h2>
+          <div
+            class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <button
+              class="collapsible-btn w-full text-left text-2xl font-bold mb-4 text-gray-900 dark:text-white flex items-center justify-between"
+              aria-expanded="false"
+              aria-controls="tasks-content"
+            >
+              Task List
+              <i data-lucide="chevron-down" class="w-6 h-6"></i>
+            </button>
+            <div id="tasks-content" class="collapsible-content">
+              <ul
+                class="list-decimal list-inside text-gray-600 dark:text-gray-300 font-lato"
+              >
+                <li>Add a new password for a social media account.</li>
+                <li>Search for an existing password in the "Bank" category.</li>
+                <li>Edit a password entry and update its category.</li>
+                <li>Delete a password and confirm the action.</li>
+                <li>Export the encrypted password file.</li>
+              </ul>
+            </div>
+          </div>
+          <div
+            class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg mt-8"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <button
+              class="collapsible-btn w-full text-left text-2xl font-bold mb-4 text-gray-900 dark:text-white flex items-center justify-between"
+              aria-expanded="false"
+              aria-controls="scenarios-content"
+            >
+              Scenarios
+              <i data-lucide="chevron-down" class="w-6 h-6"></i>
+            </button>
+            <div id="scenarios-content" class="collapsible-content">
+              <p class="text-gray-600 dark:text-gray-300 font-lato">
+                Participants were given realistic scenarios, such as: "You just
+                created a new social media account and need to save its password
+                securely," or "You suspect a bank account password is outdated
+                and need to update it in the manager."
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Usability Testing Results -->
+      <section id="results" class="py-16 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+          <h2
+            class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+            data-aos="fade-up"
+          >
+            Usability Testing Results
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div
+              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg text-center"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <i
+                data-lucide="check-circle"
+                class="w-12 h-12 mx-auto mb-4 text-orange-500"
+                aria-hidden="true"
+              ></i>
+              <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
+                Task Completion Rate
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 font-lato">
+                92% of tasks were completed successfully without assistance.
+              </p>
+            </div>
+            <div
+              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg text-center"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <i
+                data-lucide="clock"
+                class="w-12 h-12 mx-auto mb-4 text-orange-500"
+                aria-hidden="true"
+              ></i>
+              <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
+                Average Task Time
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 font-lato">
+                Tasks took an average of 45 seconds, with search tasks being the
+                fastest.
+              </p>
+            </div>
+            <div
+              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg text-center"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <i
+                data-lucide="message-square"
+                class="w-12 h-12 mx-auto mb-4 text-orange-500"
+                aria-hidden="true"
+              ></i>
+              <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
+                User Feedback
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 font-lato">
+                Users found the interface intuitive but suggested clearer delete
+                confirmation prompts.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prototype Improvements -->
+      <section id="improvements" class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+          <h2
+            class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+            data-aos="fade-up"
+          >
+            Prototype Improvements
+          </h2>
+          <div
+            class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <button
+              class="collapsible-btn w-full text-left text-2xl font-bold mb-4 text-gray-900 dark:text-white flex items-center justify-between"
+              aria-expanded="false"
+              aria-controls="improvements-content"
+            >
+              Implemented Changes
+              <i data-lucide="chevron-down" class="w-6 h-6"></i>
+            </button>
+            <div id="improvements-content" class="collapsible-content">
+              <ul
+                class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+              >
+                <li>
+                  Added a confirmation dialog for password deletion to prevent
+                  accidental loss.
+                </li>
+                <li>
+                  Improved search functionality with real-time suggestions.
+                </li>
+                <li>
+                  Enhanced category labels for better visibility on smaller
+                  screens.
+                </li>
+                <li>
+                  Streamlined the export process with clearer instructions.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Poster -->
+      <section id="poster" class="py-16 bg-white dark:bg-gray-900 text-center">
+        <div class="container mx-auto px-4" data-aos="zoom-in">
+          <h2 class="text-4xl font-bold mb-12 text-gray-900 dark:text-white">
+            Usability Testing Poster
+          </h2>
+          <p
+            class="text-lg text-gray-600 dark:text-gray-300 mb-8 font-lato max-w-2xl mx-auto"
+          >
+            View the poster summarizing our usability testing process and
+            findings.
+          </p>
+          <img
+            src="../public/assets/images/poster-placeholder.jpg"
+            alt="Usability Testing Poster"
+            class="mx-auto rounded-xl shadow-lg max-w-full md:max-w-3xl"
+          />
+          <a
+            href="../public/assets/images/poster-placeholder.jpg"
+            download
+            class="inline-block mt-6 px-6 py-3 gradient-button text-white rounded-full font-roboto shadow-lg"
+          >
+            Download Poster
+          </a>
+        </div>
+      </section>
+
+      <!-- Videos -->
+      <section id="videos" class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+          <h2
+            class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+            data-aos="fade-up"
+          >
+            Videos
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div
+              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+                Prototype Demo
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 font-lato mb-4">
+                A walkthrough of the K.Y.S Password Manager prototype,
+                showcasing key features.
+              </p>
+              <button
+                class="video-btn gradient-button text-white px-6 py-3 rounded-full font-roboto"
+                data-video-url="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                aria-label="Play Prototype Demo Video"
+              >
+                Watch Video
+              </button>
+            </div>
+            <div
+              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+                Usability Testing Session
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 font-lato mb-4">
+                Footage of a usability testing session with a participant
+                performing tasks.
+              </p>
+              <button
+                class="video-btn gradient-button text-white px-6 py-3 rounded-full font-roboto"
+                data-video-url="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                aria-label="Play Usability Testing Video"
+              >
+                Watch Video
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-gray-900 text-gray-300">
+      <div class="container mx-auto px-4">
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left"
+        >
+          <div>
+            <div class="flex items-center justify-center md:justify-start mb-4">
+              <img
+                src="../public/assets/images/logo.png"
+                alt="K.Y.S Password Manager Logo"
+                class="h-8 mr-2"
+              />
+              <span class="text-xl font-bold text-white">K.Y.S</span>
+            </div>
+            <p class="font-lato">Your security, your responsibility.</p>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-4 text-white">Links</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="../index.html#features"
+                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  >Features</a
+                >
+              </li>
+              <li>
+                <a
+                  href="../index.html#security"
+                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  >Security</a
+                >
+              </li>
+              <li>
+                <a
+                  href="../index.html#download"
+                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  >Download</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-4 text-white">Legal</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  >Terms of Service</a
+                >
+              </li>
+              <li>
+                <a
+                  href="mailto:contact@kysmanager.com"
+                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  >Contact Us</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p class="text-center mt-8 font-lato">
+          © 2025 K.Y.S Password Manager. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/theme-toggle.js"></script>
+    <script>
+      // Mobile menu toggle
+      const hamburgerBtn = document.getElementById("hamburger-btn");
+      const closeMenuBtn = document.getElementById("close-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      function toggleMobileMenu() {
+        mobileMenu.classList.toggle("active");
+        hamburgerBtn.setAttribute(
+          "aria-expanded",
+          mobileMenu.classList.contains("active")
+        );
+      }
+
+      hamburgerBtn.addEventListener("click", toggleMobileMenu);
+      closeMenuBtn.addEventListener("click", toggleMobileMenu);
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          mobileMenu.classList.contains("active") &&
+          !mobileMenu.contains(e.target) &&
+          !hamburgerBtn.contains(e.target)
+        ) {
+          toggleMobileMenu();
+        }
+      });
+
+      // Accessibility: Close menu with Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && mobileMenu.classList.contains("active")) {
+          toggleMobileMenu();
+        }
+      });
+
+      // Accessibility: Trap focus within mobile menu
+      mobileMenu.addEventListener("keydown", (e) => {
+        const focusableElements = mobileMenu.querySelectorAll(
+          "a, button, [tabindex]:not([tabindex='-1'])"
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.key === "Tab") {
+          if (e.shiftKey && document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          } else if (!e.shiftKey && document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      });
+
+      // Sync mobile theme toggle with desktop
+      const mobileThemeToggle = document.getElementById("mobile-theme-toggle");
+      mobileThemeToggle.addEventListener("click", () => {
+        document.getElementById("theme-toggle").click();
+      });
+
+      // Collapsible sections
+      const collapsibleButtons = document.querySelectorAll(".collapsible-btn");
+      collapsibleButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const content = document.getElementById(
+            btn.getAttribute("aria-controls")
+          );
+          const isExpanded = btn.getAttribute("aria-expanded") === "true";
+          btn.setAttribute("aria-expanded", !isExpanded);
+          content.classList.toggle("active");
+          const chevron = btn.querySelector("i");
+          chevron.classList.toggle("rotate-180");
+        });
+      });
+
+      // Video modal functionality
+      const videoModal = document.getElementById("video-modal");
+      const videoIframe = document.getElementById("video-iframe");
+      const closeVideoModalBtn = document.getElementById("close-video-modal");
+      const videoButtons = document.querySelectorAll(".video-btn");
+
+      videoButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const videoUrl = btn.getAttribute("data-video-url");
+          videoIframe.src = videoUrl;
+          videoModal.classList.add("active");
+        });
+      });
+
+      closeVideoModalBtn.addEventListener("click", () => {
+        videoModal.classList.remove("active");
+        videoIframe.src = "";
+      });
+
+      // Close video modal when clicking outside
+      videoModal.addEventListener("click", (e) => {
+        if (e.target === videoModal) {
+          videoModal.classList.remove("active");
+          videoIframe.src = "";
+        }
+      });
+
+      // Accessibility: Close video modal with Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && videoModal.classList.contains("active")) {
+          videoModal.classList.remove("active");
+          videoIframe.src = "";
+        }
+      });
+    </script>
+  </body>
+</html>
