@@ -2,318 +2,767 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <meta
       name="description"
-      content="Meet the team behind K.Y.S Password Manager - Christian Paladan, Jeremy Jamer, John Luis, and Andrew Refina."
+      content="Meet the team behind K.Y.S Password Manager, a student-led project focused on usability and security."
     />
     <meta
       name="keywords"
-      content="KYS team, password manager team, Christian Paladan, Jeremy Jamer, John Luis, Andrew Refina"
+      content="K.Y.S team, password manager project, usability testing, student project"
     />
-    <title>Meet the Team - K.Y.S Password Manager</title>
+    <title>K.Y.S Password Manager - Meet the Team</title>
     <link
       rel="icon"
       href="../../public/assets/images/logo.png"
-      type="image/png"
+      type="image/webp"
     />
-    <!-- Tailwind CSS (Output from CLI) -->
+    <!-- Tailwind CSS -->
     <link href="../../public/output.css" rel="stylesheet" />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <!-- AOS (Animate on Scroll) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
-      /* Fonts (Same as index.html) */
+      /* Fonts */
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700&family=Lato:wght@400&family=Roboto:wght@400&display=swap");
 
       /* Custom Styles */
       body {
         font-family: "Inter", sans-serif;
+        overflow-x: hidden;
       }
       h1,
       h2,
       h3 {
         font-family: "Montserrat", sans-serif;
       }
-      .font-lato {
+      p {
         font-family: "Lato", sans-serif;
       }
-      .font-roboto {
+      button,
+      a.button,
+      nav a {
         font-family: "Roboto", sans-serif;
       }
 
-      /* Card styles */
-      .team-card {
+      /* Gradient Button */
+      .gradient-button {
+        background: linear-gradient(135deg, #e3750c, #ff9232);
         transition: all 0.3s ease;
+      }
+      .gradient-button:hover {
+        background: linear-gradient(135deg, #17191f, #e3750c);
+      }
+      .dark .gradient-button:hover {
+        background: linear-gradient(135deg, #ff9232, #e3750c);
+      }
+
+      /* Card Hover Effect */
+      .team-card {
         position: relative;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
       }
-      .team-card:hover {
-        transform: scale(1.05);
-        z-index: 10;
+      .team-card:hover,
+      .team-card:focus-within {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
       }
-      .team-card .static-content {
-        height: 100%;
-      }
-      .team-card .static-content img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      .team-card .static-info {
+      .team-card .overlay {
         position: absolute;
+        top: 0;
         left: 0;
-        bottom: 0;
         width: 100%;
-        padding: 1rem;
-        background: linear-gradient(
-          to top,
-          rgba(0, 0, 0, 0.8) 0%,
-          transparent 100%
-        );
-        color: white;
-      }
-      .team-card .hover-content {
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.9);
-        padding: 1.5rem;
+        height: 100%;
+        background: rgba(227, 117, 12, 0.9);
         opacity: 0;
-        transition: opacity 0.3s ease;
-        color: white;
+        transform: translateY(100%);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 1.5rem;
       }
-      .team-card:hover .hover-content,
-      .team-card:focus-within .hover-content {
+      .team-card:hover .overlay,
+      .team-card:focus-within .overlay {
         opacity: 1;
+        transform: translateY(0);
+      }
+      .team-card img {
+        transition: transform 0.3s ease;
+      }
+      .team-card:hover img,
+      .team-card:focus-within img {
+        transform: scale(1.05);
+      }
+
+      /* Focus Styles for Accessibility */
+      .team-card:focus-within {
+        outline: 3px solid #ff9232;
+        outline-offset: 2px;
+      }
+      a:focus,
+      button:focus {
+        outline: 3px solid #ff9232;
+        outline-offset: 2px;
+      }
+
+      /* Micro-interaction for Buttons */
+      .gradient-button {
+        position: relative;
+        overflow: hidden;
+      }
+      .gradient-button::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: left 0.3s ease;
+      }
+      .gradient-button:hover::after {
+        left: 100%;
+      }
+
+      /* Timeline Styles */
+      .timeline {
+        position: relative;
+        padding-left: 2rem;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 0.75rem;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: #e3750c;
+      }
+      .timeline-item {
+        position: relative;
+        margin-bottom: 2rem;
+      }
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -2.25rem;
+        top: 0.5rem;
+        width: 1rem;
+        height: 1rem;
+        background: #ff9232;
+        border-radius: 50%;
+        border: 2px solid #fff;
+      }
+
+      /* Sidebar Styles */
+      #mobile-menu {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      #mobile-menu.active {
+        transform: translateX(0);
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 1rem;
+        }
+        .team-card .overlay {
+          padding: 1rem;
+        }
+        .team-card .overlay p {
+          font-size: 0.9rem;
+        }
+        .timeline {
+          padding-left: 1.5rem;
+        }
+        .timeline::before {
+          left: 0.5rem;
+        }
+        .timeline-item::before {
+          left: -1.75rem;
+        }
       }
     </style>
   </head>
-  <body class="bg-gray-900 text-gray-100 transition-colors duration-300">
-    <!-- Team Section -->
-    <section
-      class="min-h-screen flex items-center justify-center py-16 bg-gradient-to-br from-gray-800 to-gray-900"
+  <body
+    class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300"
+  >
+    <!-- Navbar -->
+    <nav
+      class="fixed top-0 left-0 w-full bg-white dark:bg-gray-800 shadow-lg z-50"
     >
-      <div class="container mx-auto px-4">
-        <!-- Team Heading -->
-        <h2
-          class="text-4xl font-bold text-center mb-12 text-white"
-          data-aos="fade-up"
-        >
-          Meet the Team Behind K.Y.S
-        </h2>
-
-        <!-- Team Cards -->
-        <div class="flex flex-wrap justify-center gap-8">
-          <!-- Christian Paladan - Leader -->
-          <div
-            class="team-card w-[300px] h-[400px] rounded-lg overflow-hidden border-2 border-transparent hover:shadow-xl hover:border-kys-orange-light"
-            data-aos="fade-up"
-            data-aos-delay="100"
-            tabindex="0"
-            role="article"
-            aria-labelledby="christian-name"
-            aria-describedby="christian-bio"
+      <div
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <div class="flex items-center">
+          <button
+            id="hamburger-btn"
+            class="md:hidden p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            aria-label="Toggle mobile menu"
           >
-            <!-- Static Content (Photo with overlay text) -->
-            <div class="static-content">
-              <img
-                src="../../public/assets/images/christian-paladan.jpg"
-                alt="Christian Paladan, Team Leader of K.Y.S Password Manager"
-                class="w-full h-full object-cover"
-                loading="lazy"
-              />
-              <div class="static-info">
-                <h3 id="christian-name-static" class="text-lg font-bold">
-                  Christian Paladan
-                </h3>
-                <p class="font-roboto text-kys-orange-light">Team Leader</p>
-              </div>
-            </div>
-
-            <!-- Hover Content (Hidden by default) -->
-            <div class="hover-content flex flex-col justify-center">
-              <h3 id="christian-name" class="text-2xl font-bold mb-2">
-                Christian Paladan
-              </h3>
-              <p class="font-roboto text-kys-orange-light text-lg mb-4">
-                Team Leader
-              </p>
-              <div id="christian-bio">
-                <p class="font-lato text-gray-300 mb-2">
-                  <strong>Contributions:</strong> Christian spearheaded the
-                  project, coordinating tasks and ensuring the app's vision of
-                  user empowerment was met.
-                </p>
-                <p class="font-lato text-gray-300">
-                  <strong>Achievements:</strong> Successfully led the team to
-                  deliver K.Y.S on time, fostering a collaborative and
-                  innovative environment.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Jeremy Jamer - Main Programmer -->
-          <div
-            class="team-card w-[300px] h-[400px] rounded-lg overflow-hidden border-2 border-transparent hover:shadow-xl hover:border-kys-orange-light"
-            data-aos="fade-up"
-            data-aos-delay="200"
-            tabindex="0"
-            role="article"
-            aria-labelledby="jeremy-name"
-            aria-describedby="jeremy-bio"
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+          <img
+            src="../../public/assets/images/logo.png"
+            alt="K.Y.S Password Manager Logo"
+            class="h-10 mr-3 ml-2"
+            loading="lazy"
+          />
+          <span class="text-2xl font-bold text-gray-900 dark:text-white"
+            >K.Y.S</span
           >
-            <!-- Static Content -->
-            <div class="static-content">
-              <img
-                src="../../public/assets/images/jeremy-jamer.jpg"
-                alt="Jeremy Jamer, Main Programmer of K.Y.S Password Manager"
-                class="w-full h-full object-cover"
-                loading="lazy"
-              />
-              <div class="static-info">
-                <h3 id="jeremy-name-static" class="text-lg font-bold">
-                  Jeremy Jamer
-                </h3>
-                <p class="font-roboto text-kys-orange-light">Main Programmer</p>
-              </div>
-            </div>
-
-            <!-- Hover Content -->
-            <div class="hover-content flex flex-col justify-center">
-              <h3 id="jeremy-name" class="text-2xl font-bold mb-2">
-                Jeremy Jamer
-              </h3>
-              <p class="font-roboto text-kys-orange-light text-lg mb-4">
-                Main Programmer
-              </p>
-              <div id="jeremy-bio">
-                <p class="font-lato text-gray-300 mb-2">
-                  <strong>Contributions:</strong> Jeremy developed the core
-                  functionality of K.Y.S, implementing local encryption and a
-                  user-friendly interface.
-                </p>
-                <p class="font-lato text-gray-300">
-                  <strong>Achievements:</strong> Optimized the app for
-                  performance, ensuring it runs smoothly on various Windows
-                  systems.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- John Luis - Marketing -->
-          <div
-            class="team-card w-[300px] h-[400px] rounded-lg overflow-hidden border-2 border-transparent hover:shadow-xl hover:border-kys-orange-light"
-            data-aos="fade-up"
-            data-aos-delay="300"
-            tabindex="0"
-            role="article"
-            aria-labelledby="john-name"
-            aria-describedby="john-bio"
-          >
-            <!-- Static Content -->
-            <div class="static-content">
-              <img
-                src="../../public/assets/images/john-luis.jpg"
-                alt="John Luis, Marketing Lead of K.Y.S Password Manager"
-                class="w-full h-full object-cover"
-                loading="lazy"
-              />
-              <div class="static-info">
-                <h3 id="john-name-static" class="text-lg font-bold">
-                  John Luis
-                </h3>
-                <p class="font-roboto text-kys-orange-light">Marketing Lead</p>
-              </div>
-            </div>
-
-            <!-- Hover Content -->
-            <div class="hover-content flex flex-col justify-center">
-              <h3 id="john-name" class="text-2xl font-bold mb-2">John Luis</h3>
-              <p class="font-roboto text-kys-orange-light text-lg mb-4">
-                Marketing Lead
-              </p>
-              <div id="john-bio">
-                <p class="font-lato text-gray-300 mb-2">
-                  <strong>Contributions:</strong> John crafted the marketing
-                  strategy, emphasizing the slogan "Your security, your
-                  responsibility."
-                </p>
-                <p class="font-lato text-gray-300">
-                  <strong>Achievements:</strong> Increased user awareness
-                  through targeted campaigns, driving initial downloads and
-                  engagement.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Andrew Refina - UX/UI Designer -->
-          <div
-            class="team-card w-[300px] h-[400px] rounded-lg overflow-hidden border-2 border-transparent hover:shadow-xl hover:border-kys-orange-light"
-            data-aos="fade-up"
-            data-aos-delay="400"
-            tabindex="0"
-            role="article"
-            aria-labelledby="andrew-name"
-            aria-describedby="andrew-bio"
-          >
-            <!-- Static Content -->
-            <div class="static-content">
-              <img
-                src="../../public/assets/images/andrew-refina.jpg"
-                alt="Andrew Refina, UX/UI Designer of K.Y.S Password Manager"
-                class="w-full h-full object-cover"
-                loading="lazy"
-              />
-              <div class="static-info">
-                <h3 id="andrew-name-static" class="text-lg font-bold">
-                  Andrew Refina
-                </h3>
-                <p class="font-roboto text-kys-orange-light">UX/UI Designer</p>
-              </div>
-            </div>
-
-            <!-- Hover Content -->
-            <div class="hover-content flex flex-col justify-center">
-              <h3 id="andrew-name" class="text-2xl font-bold mb-2">
-                Andrew Refina
-              </h3>
-              <p class="font-roboto text-kys-orange-light text-lg mb-4">
-                UX/UI Designer
-              </p>
-              <div id="andrew-bio">
-                <p class="font-lato text-gray-300 mb-2">
-                  <strong>Contributions:</strong> Andrew designed the intuitive
-                  UI for K.Y.S, ensuring a seamless user experience across the
-                  app and website.
-                </p>
-                <p class="font-lato text-gray-300">
-                  <strong>Achievements:</strong> Created a visually appealing
-                  design system that reflects the app's focus on user
-                  empowerment.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
-
-        <!-- Back to Home Link -->
-        <div class="mt-32 text-center">
+        <div class="hidden md:flex items-center space-x-6">
           <a
-            href="../../index.html"
-            class="inline-block px-6 py-3 bg-gradient-to-r from-kys-orange to-kys-orange-light text-white text-lg rounded-full font-roboto shadow-lg hover:from-gray-900 hover:to-kys-orange focus:outline focus:outline-3 focus:outline-offset-2 focus:outline-kys-orange-light"
-            aria-label="Navigate back to the home page"
+            href="../../index.html#project"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            >Project</a
           >
-            Back to Home
-          </a>
+          <a
+            href="usability-testing.html"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            >Usability Testing</a
+          >
+          <a
+            href="#"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            aria-current="page"
+            >Team</a
+          >
+          <a
+            href="../../index.html#download"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            >Download</a
+          >
+          <button
+            id="theme-toggle"
+            class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 hover:bg-orange-500 hover:text-white transition duration-200 w-10 h-10 flex items-center justify-center"
+            aria-label="Toggle between light and dark theme"
+          >
+            <i
+              data-lucide="sun"
+              class="block dark:hidden w-6 h-6"
+              aria-hidden="true"
+            ></i>
+            <i
+              data-lucide="moon"
+              class="hidden dark:block w-6 h-6"
+              aria-hidden="true"
+            ></i>
+          </button>
         </div>
       </div>
-    </section>
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg z-50 md:hidden"
+        role="dialog"
+        aria-label="Mobile navigation menu"
+      >
+        <div
+          class="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700"
+        >
+          <span class="text-xl font-bold text-gray-900 dark:text-white"
+            >K.Y.S</span
+          >
+          <button
+            id="close-menu-btn"
+            class="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            aria-label="Close mobile menu"
+          >
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+        <div class="flex flex-col p-4 space-y-4">
+          <a
+            href="../../index.html#project"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            onclick="toggleMobileMenu()"
+            >Project</a
+          >
+          <a
+            href="usability-testing.html"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            onclick="toggleMobileMenu()"
+            >Usability Testing</a
+          >
+          <a
+            href="#"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            onclick="toggleMobileMenu()"
+            aria-current="page"
+            >Team</a
+          >
+          <a
+            href="../../index.html#download"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            onclick="toggleMobileMenu()"
+            >Download</a
+          >
+          <button
+            id="mobile-theme-toggle"
+            class="p-1 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 hover:bg-orange-500 hover:text-white transition duration-200 w-8 h-8 flex items-center justify-center"
+            aria-label="Toggle between light and dark theme"
+          >
+            <i
+              data-lucide="sun"
+              class="block dark:hidden w-5 h-5"
+              aria-hidden="true"
+            ></i>
+            <i
+              data-lucide="moon"
+              class="hidden dark:block w-5 h-5"
+              aria-hidden="true"
+            ></i>
+          </button>
+        </div>
+      </div>
+    </nav>
 
-    <!-- Initialize AOS -->
+    <!-- Main Content -->
+    <main>
+      <!-- Hero Section -->
+      <section
+        class="min-h-[50vh] flex items-center justify-center bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 pt-16"
+      >
+        <div
+          class="container mx-auto px-4 text-center"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+        >
+          <h1
+            class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white"
+          >
+            Meet the K.Y.S Team
+          </h1>
+          <p
+            class="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 font-lato max-w-2xl mx-auto"
+          >
+            A dedicated group of students who brought K.Y.S Password Manager to
+            life through collaboration, usability testing, and innovative
+            design.
+          </p>
+          <a
+            href="usability-testing.html"
+            class="inline-block px-6 py-3 gradient-button text-white rounded-full font-roboto shadow-lg"
+            aria-label="Learn about K.Y.S usability testing"
+          >
+            Explore Our Process
+          </a>
+        </div>
+      </section>
+
+      <!-- Team Introduction -->
+      <section id="team-intro" class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+          <h2
+            class="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white"
+            data-aos="fade-up"
+          >
+            Our Collaborative Journey
+          </h2>
+          <p
+            class="text-lg text-gray-600 dark:text-gray-300 mb-6 font-lato max-w-3xl mx-auto text-center"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            The K.Y.S Password Manager is the result of a passionate student
+            team working together to design a secure, user-friendly tool. From
+            coding the encryption to conducting usability tests with 10
+            participants, we iterated relentlessly to achieve a 92% task
+            completion rate.
+          </p>
+          <div
+            class="flex justify-center"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <a
+              href="../../index.html#download"
+              class="inline-block px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-full font-roboto shadow-lg hover:bg-orange-500 hover:text-white transition duration-200"
+              aria-label="Try K.Y.S Password Manager prototype"
+            >
+              Try Our Prototype
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Team Members -->
+      <section id="team-members" class="py-16 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+          <h2
+            class="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+            data-aos="fade-up"
+          >
+            Our Team
+          </h2>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+            role="list"
+          >
+            <!-- Team Member 1 -->
+            <div
+              class="team-card bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden"
+              tabindex="0"
+              role="listitem"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <img
+                src="../../public/assets/images/christian-paladan.jpg"
+                alt="Christian Paladan, Team Leader"
+                class="w-full h-64 object-cover"
+                loading="lazy"
+              />
+              <div class="p-6 text-center">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                  Christian Paladan
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 font-lato mb-4">
+                  Team Leader
+                </p>
+              </div>
+              <div class="overlay text-white">
+                <p class="font-lato">
+                  <strong>Contributions:</strong> Oversaw project planning,
+                  coordinated usability testing, and led team brainstorming
+                  sessions.<br />
+                  <strong>Achievements:</strong> Ensured 92% task completion
+                  rate in usability tests and finalized project roadmap.
+                </p>
+              </div>
+            </div>
+            <!-- Team Member 2 -->
+            <div
+              class="team-card bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden"
+              tabindex="0"
+              role="listitem"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <img
+                src="../../public/assets/images/jeremy-jamer.jpg"
+                alt="Jeremy Jamer, Main Programmer"
+                class="w-full h-64 object-cover"
+                loading="lazy"
+              />
+              <div class="p-6 text-center">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                  Jeremy Jamer
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 font-lato mb-4">
+                  Main Programmer
+                </p>
+              </div>
+              <div class="overlay text-white">
+                <p class="font-lato">
+                  <strong>Contributions:</strong> Implemented AES-256 encryption
+                  and developed the core password management system.<br />
+                  <strong>Achievements:</strong> Optimized app performance for
+                  low-resource devices and fixed critical bugs during testing.
+                </p>
+              </div>
+            </div>
+            <!-- Team Member 3 -->
+            <div
+              class="team-card bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden"
+              tabindex="0"
+              role="listitem"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              <img
+                src="../../public/assets/images/john-luis.jpg"
+                alt="John Luis, Marketing Lead"
+                class="w-full h-64 object-cover"
+                loading="lazy"
+              />
+              <div class="p-6 text-center">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                  John Luis
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 font-lato mb-4">
+                  Marketing Lead
+                </p>
+              </div>
+              <div class="overlay text-white">
+                <p class="font-lato">
+                  <strong>Contributions:</strong> Designed the project website
+                  and crafted user recruitment strategies for usability
+                  testing.<br />
+                  <strong>Achievements:</strong> Increased participant diversity
+                  by 30% and created engaging demo videos.
+                </p>
+              </div>
+            </div>
+            <!-- Team Member 4 -->
+            <div
+              class="team-card bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden"
+              tabindex="0"
+              role="listitem"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
+              <img
+                src="../../public/assets/images/andrew-refina.jpg"
+                alt="Andrew Refina, UX/UI Designer"
+                class="w-full h-64 object-cover"
+                loading="lazy"
+              />
+              <div class="p-6 text-center">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                  Andrew Refina
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 font-lato mb-4">
+                  UX/UI Designer
+                </p>
+              </div>
+              <div class="overlay text-white">
+                <p class="font-lato">
+                  <strong>Contributions:</strong> Designed 10 usability test
+                  scenarios and created the app’s intuitive interface.<br />
+                  <strong>Achievements:</strong> Improved search functionality
+                  based on user feedback and enhanced mobile compatibility.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Project Milestones -->
+      <section id="milestones" class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+          <h2
+            class="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+            data-aos="fade-up"
+          >
+            Our Journey in Milestones
+          </h2>
+          <div class="timeline" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                Project Kickoff
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 font-lato">
+                January 2025: Team formed, defined project goals, and selected
+                AES-256 encryption for local password storage.
+              </p>
+            </div>
+            <div class="timeline-item">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                Prototype Development
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 font-lato">
+                February 2025: Built initial prototype with core features and
+                conducted internal testing.
+              </p>
+            </div>
+            <div class="timeline-item">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                Usability Testing
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 font-lato">
+                March 2025: Tested with 10 participants using DECIDE framework,
+                achieving 92% task completion rate.
+              </p>
+            </div>
+            <div class="timeline-item">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                Final Refinements
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 font-lato">
+                April 2025: Implemented user feedback, enhanced search and
+                mobile compatibility, and launched project website.
+              </p>
+            </div>
+          </div>
+          <div
+            class="flex justify-center mt-8"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <a
+              href="https://github.com/kys-project"
+              class="inline-block px-6 py-3 gradient-button text-white rounded-full font-roboto shadow-lg"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View K.Y.S project on GitHub"
+            >
+              View Our Code on GitHub
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-gray-900 text-gray-300">
+      <div class="container mx-auto px-4">
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left"
+        >
+          <div>
+            <div class="flex items-center justify-center md:justify-start mb-4">
+              <img
+                src="../../public/assets/images/logo.png"
+                alt="K.Y.S Password Manager Logo"
+                class="h-8 mr-2"
+                loading="lazy"
+              />
+              <span class="text-xl font-bold text-white">K.Y.S</span>
+            </div>
+            <p class="font-lato">
+              A student-led project in usability and security.
+            </p>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-4 text-white">Links</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="../../index.html#project"
+                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  >Project</a
+                >
+              </li>
+              <li>
+                <a
+                  href="usability-testing.html"
+                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  >Usability Testing</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  aria-current="page"
+                  >Team</a
+                >
+              </li>
+              <li>
+                <a
+                  href="../../index.html#download"
+                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  >Download</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold mb-4 text-white">Connect</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="https://github.com/kys-project"
+                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >GitHub Repository</a
+                >
+              </li>
+              <li>
+                <a
+                  href="mailto:contact@kys-project.com"
+                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  >Contact Us</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p class="text-center mt-8 font-lato">
+          © 2025 K.Y.S Password Manager Project. All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../scripts/main.js"></script>
+    <script src="../scripts/theme-toggle.js"></script>
     <script>
-      AOS.init();
+      // Initialize AOS
+      document.addEventListener("DOMContentLoaded", () => {
+        try {
+          lucide.createIcons();
+          AOS.init({
+            duration: 800,
+            once: true,
+          });
+        } catch (error) {
+          console.error("Initialization failed:", error);
+        }
+      });
+
+      // Mobile menu toggle
+      const hamburgerBtn = document.getElementById("hamburger-btn");
+      const closeMenuBtn = document.getElementById("close-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      function toggleMobileMenu() {
+        mobileMenu.classList.toggle("active");
+        hamburgerBtn.setAttribute(
+          "aria-expanded",
+          mobileMenu.classList.contains("active")
+        );
+      }
+
+      hamburgerBtn.addEventListener("click", toggleMobileMenu);
+      closeMenuBtn.addEventListener("click", toggleMobileMenu);
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          mobileMenu.classList.contains("active") &&
+          !mobileMenu.contains(e.target) &&
+          !hamburgerBtn.contains(e.target)
+        ) {
+          toggleMobileMenu();
+        }
+      });
+
+      // Accessibility: Close menu with Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && mobileMenu.classList.contains("active")) {
+          toggleMobileMenu();
+        }
+      });
+
+      // Accessibility: Trap focus within mobile menu
+      mobileMenu.addEventListener("keydown", (e) => {
+        const focusableElements = mobileMenu.querySelectorAll(
+          "a, button, [tabindex]:not([tabindex='-1'])"
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.key === "Tab") {
+          if (e.shiftKey && document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          } else if (!e.shiftKey && document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      });
+
+      // Sync mobile theme toggle with desktop
+      const mobileThemeToggle = document.getElementById("mobile-theme-toggle");
+      mobileThemeToggle.addEventListener("click", () => {
+        document.getElementById("theme-toggle").click();
+      });
     </script>
   </body>
 </html>

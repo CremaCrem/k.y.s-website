@@ -8,13 +8,13 @@
     />
     <meta
       name="description"
-      content="K.Y.S Password Manager - Basic local encryption for your passwords. Your security, your responsibility."
+      content="K.Y.S Password Manager - A student-led project exploring local encryption and usability testing for secure password management."
     />
     <meta
       name="keywords"
-      content="password manager, local encryption, KYS, user responsibility"
+      content="password manager, local encryption, usability testing, KYS project, user responsibility"
     />
-    <title>K.Y.S Password Manager - Your Security, Your Responsibility</title>
+    <title>K.Y.S Password Manager - A Usability Testing Project</title>
     <link rel="icon" href="public/assets/images/logo.png" type="image/png" />
     <!-- Tailwind CSS (Output from CLI) -->
     <link href="public/output.css" rel="stylesheet" />
@@ -112,7 +112,6 @@
       }
       .modal-content {
         background: white;
-        dark: bg-gray-800;
         padding: 2rem;
         border-radius: 1rem;
         max-width: 90%;
@@ -125,12 +124,11 @@
       .modal-overlay.active .modal-content {
         transform: scale(1);
       }
-      .darkgoodbye .modal-content {
+      .dark .modal-content {
         background: #1f2937;
         color: #e5e7eb;
       }
       .modal-content h3 {
-        color: black;
         margin-bottom: 1rem;
         font-size: 1.5rem;
       }
@@ -139,7 +137,7 @@
         color: #4b5563;
       }
       .dark .modal-content p {
-        color: #000000;
+        color: #d1d5db;
       }
       .modal-buttons {
         display: flex;
@@ -196,9 +194,27 @@
         transform: translateX(0);
       }
 
+      /* Micro-interaction for Buttons */
+      .gradient-button {
+        position: relative;
+        overflow: hidden;
+      }
+      .gradient-button::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: left 0.3s ease;
+      }
+      .gradient-button:hover::after {
+        left: 100%;
+      }
+
       /* Responsive adjustments */
       @media (max-width: 768px) {
-        /* Mobile-specific styles */
         .container {
           width: 100%;
           padding-right: 15px;
@@ -206,21 +222,15 @@
           margin-right: auto;
           margin-left: auto;
         }
-
-        /* Mobile menu width */
         #mobile-menu {
           width: 80%;
         }
-
-        /* Prevent horizontal overflow */
         img,
         video,
         iframe {
           max-width: 100%;
           height: auto;
         }
-
-        /* Adjust text sizes for mobile */
         h1 {
           font-size: 2.5rem;
         }
@@ -230,8 +240,6 @@
         .feature-card h3 {
           font-size: 1.25rem;
         }
-
-        /* Adjust button sizes */
         .gradient-button {
           padding: 0.75rem 1.5rem;
           font-size: 1rem;
@@ -252,12 +260,12 @@
     >
       <div class="modal-content">
         <h3 id="modal-title" class="text-gray-900 dark:text-white">
-          Confirm Download
+          Try the K.Y.S Prototype
         </h3>
         <p class="font-lato">
-          You're about to download K.Y.S Password Manager. This app provides
-          basic encryption and relies on you to secure your device. Are you sure
-          you want to proceed?
+          You're about to download the K.Y.S Password Manager prototype, built
+          with basic local encryption. Ensure your device is secure, as the app
+          relies on your system’s protections. Proceed?
         </p>
         <div class="modal-buttons">
           <button class="confirm-btn font-roboto" id="confirm-download">
@@ -289,6 +297,7 @@
             src="public/assets/images/logo.png"
             alt="K.Y.S Password Manager Logo"
             class="h-10 mr-3 ml-2"
+            loading="lazy"
           />
           <span class="text-2xl font-bold text-gray-900 dark:text-white"
             >K.Y.S</span
@@ -296,29 +305,19 @@
         </div>
         <div class="hidden md:flex items-center space-x-6">
           <a
-            href="#features"
+            href="#project"
             class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            >Features</a
-          >
-          <a
-            href="src/components/team.html"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            >Team</a
-          >
-          <a
-            href="#security"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            >Security</a
-          >
-          <a
-            href="#testimonials"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            >Testimonials</a
+            >Project</a
           >
           <a
             href="src/components/usability-testing.html"
             class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
             >Usability Testing</a
+          >
+          <a
+            href="src/components/team.html"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            >Team</a
           >
           <a
             href="#download"
@@ -366,34 +365,22 @@
         </div>
         <div class="flex flex-col p-4 space-y-4">
           <a
-            href="#features"
+            href="#project"
             class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
             onclick="toggleMobileMenu()"
-            >Features</a
-          >
-          <a
-            href="src/components/team.html"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            onclick="toggleMobileMenu()"
-            >Team</a
-          >
-          <a
-            href="#security"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            onclick="toggleMobileMenu()"
-            >Security</a
-          >
-          <a
-            href="#testimonials"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            onclick="toggleMobileMenu()"
-            >Testimonials</a
+            >Project</a
           >
           <a
             href="src/components/usability-testing.html"
             class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
             onclick="toggleMobileMenu()"
             >Usability Testing</a
+          >
+          <a
+            href="src/components/team.html"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            onclick="toggleMobileMenu()"
+            >Team</a
           >
           <a
             href="#download"
@@ -425,6 +412,7 @@
     <main>
       <!-- Hero Section -->
       <section
+        id="project"
         class="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 pt-16"
       >
         <div
@@ -436,6 +424,7 @@
             src="public/assets/images/logo.png"
             alt="K.Y.S Password Manager Logo"
             class="mx-auto mb-6 h-24"
+            loading="lazy"
           />
           <h1
             class="text-5xl md:text-6xl font-bold mb-4 text-gray-900 dark:text-white"
@@ -445,36 +434,133 @@
           <p
             class="text-xl md:text-2xl mb-4 text-gray-600 dark:text-gray-300 font-lato"
           >
-            Your Security, Your Responsibility
+            A Project in Usability and Security
           </p>
           <p
             class="text-lg mb-8 text-gray-500 dark:text-gray-400 font-lato max-w-2xl mx-auto"
           >
-            A lightweight password manager with basic local encryption. Take
-            control of your digital security—because it's up to you to keep your
-            device safe.
+            K.Y.S is a student-led initiative to design a lightweight password
+            manager with local encryption, rigorously tested for usability.
+            Explore our process and try the prototype.
           </p>
-          <button
-            data-download-link="https://www.dropbox.com/scl/fi/71l015pbawrwgf2zwpmfx/K.Y.S-Password-Manager-Setup-2.0.0.exe?rlkey=el807d5a6ystfoz8v7geu549x&st=kmhlw4lx&dl=1"
-            class="download-btn inline-block px-8 py-4 gradient-button text-white rounded-full text-lg font-roboto shadow-lg animate-pulse-cta"
-            aria-label="Download K.Y.S Password Manager for Windows"
-          >
-            Download Now
-          </button>
+          <div class="flex justify-center gap-4">
+            <a
+              href="src/components/usability-testing.html"
+              class="inline-block px-8 py-4 gradient-button text-white rounded-full text-lg font-roboto shadow-lg"
+              aria-label="Learn about K.Y.S usability testing"
+            >
+              Explore Usability Testing
+            </a>
+            <a
+              href="#download"
+              class="inline-block px-8 py-4 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-full text-lg font-roboto shadow-lg hover:bg-orange-500 hover:text-white transition duration-200"
+              aria-label="Download K.Y.S Password Manager prototype"
+            >
+              Try the Prototype
+            </a>
+          </div>
         </div>
       </section>
 
-      <!-- Features Section -->
-      <section id="features" class="py-16 bg-gray-100 dark:bg-gray-800">
+      <!-- Project Overview Section -->
+      <section id="overview" class="py-16 bg-gray-100 dark:bg-gray-800">
         <div class="container mx-auto px-4">
           <h2
             class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white"
             data-aos="fade-up"
           >
-            Why Choose K.Y.S?
+            About the K.Y.S Project
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div
+              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <i
+                data-lucide="target"
+                class="w-12 h-12 mx-auto mb-4 text-orange-500"
+                aria-hidden="true"
+              ></i>
+              <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
+                Project Goals
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 font-lato">
+                Develop a secure, user-friendly password manager using AES-256
+                encryption, with a focus on usability testing to refine the
+                interface and user experience.
+              </p>
+            </div>
+            <div
+              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <i
+                data-lucide="users"
+                class="w-12 h-12 mx-auto mb-4 text-orange-500"
+                aria-hidden="true"
+              ></i>
+              <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
+                User-Centric Design
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 font-lato">
+                Conducted extensive usability testing with diverse participants
+                to ensure the app is intuitive and accessible for all users.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Usability Testing Summary Section -->
+      <section id="usability" class="py-16 bg-white dark:bg-gray-900">
+        <div
+          class="container mx-auto px-4 flex flex-col md:flex-row items-center"
+        >
+          <div class="md:w-1/2 mb-8 md:mb-0" data-aos="fade-right">
+            <h2 class="text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+              Usability Testing at the Core
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 font-lato">
+              We tested K.Y.S with 10 participants using the DECIDE framework,
+              achieving a 92% task completion rate. Our findings led to
+              improvements like clearer prompts and enhanced search functionality.
+            </p>
+            <a
+              href="src/components/usability-testing.html"
+              class="inline-block px-6 py-3 gradient-button text-white rounded-full font-roboto shadow-lg"
+              aria-label="Read more about usability testing"
+            >
+              Read the Full Report
+            </a>
+          </div>
+          <div class="md:w-1/2" data-aos="fade-left">
+            <div class="bg-gray-100 dark:bg-gray-700 arounded-xl p-6 shadow-lg">
+              <i
+                data-lucide="check-circle"
+                class="w-16 h-16 mx-auto mb-4 text-orange-500"
+                aria-hidden="true"
+              ></i>
+              <p class="text-center text-gray-600 dark:text-gray-300 font-lato">
+                Key improvements: Enhanced delete confirmation, real-time search
+                suggestions, and better mobile compatibility.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Technical Details Section -->
+      <section id="technical" class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+          <h2
+            class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+            data-aos="fade-up"
+          >
+            Technical Implementation
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Feature 1: Local Encryption -->
             <div
               class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg text-center"
               data-aos="fade-up"
@@ -486,40 +572,38 @@
                 aria-hidden="true"
               ></i>
               <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
-                Local Encryption
+                AES-256 Encryption
               </h3>
               <p class="text-gray-600 dark:text-gray-300 font-lato">
-                Your passwords are encrypted locally using AES-256, stored
-                securely on your device.
+                Passwords are encrypted locally using AES-256 and stored in a
+                secure JSON file on your device.
               </p>
             </div>
-            <!-- Feature 2: Easy Organization -->
             <div
               class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg text-center"
               data-aos="fade-up"
               data-aos-delay="200"
             >
               <i
-                data-lucide="filter"
+                data-lucide="code"
                 class="w-12 h-12 mx-auto mb-4 text-orange-500"
                 aria-hidden="true"
               ></i>
               <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
-                Easy Organization
+                Lightweight Codebase
               </h3>
               <p class="text-gray-600 dark:text-gray-300 font-lato">
-                Categorize passwords (e.g., Email, Social Media, Bank) for quick
-                access.
+                Built with efficiency in mind, K.Y.S runs smoothly on various
+                Windows systems with minimal resource usage.
               </p>
             </div>
-            <!-- Feature 3: Intuitive Interface -->
             <div
               class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg text-center"
               data-aos="fade-up"
               data-aos-delay="300"
             >
               <i
-                data-lucide="search"
+                data-lucide="layout"
                 class="w-12 h-12 mx-auto mb-4 text-orange-500"
                 aria-hidden="true"
               ></i>
@@ -527,90 +611,13 @@
                 Intuitive Interface
               </h3>
               <p class="text-gray-600 dark:text-gray-300 font-lato">
-                Search, edit, and delete passwords with a user-friendly
-                interface.
+                Designed with user feedback to ensure easy navigation and
+                efficient password management.
               </p>
             </div>
           </div>
         </div>
-      </section>
-
-      <!-- Security Section -->
-      <section
-        id="security"
-        class="py-16 bg-gradient-to-r from-white to-gray-50 dark:from-gray-900 dark:to-gray-800"
-      >
-        <div
-          class="container mx-auto px-4 flex flex-col md:flex-row items-center"
-        >
-          <div class="md:w-1/2 mb-8 md:mb-0" data-aos="fade-right">
-            <h2 class="text-4xl font-bold mb-4 text-gray-900 dark:text-white">
-              Your Security, Your Responsibility
-            </h2>
-            <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 font-lato">
-              K.Y.S Password Manager stores your data locally in an encrypted
-              JSON file. With no master password, it's up to you to ensure your
-              device remains secure—empowering you to take full control of your
-              privacy.
-            </p>
-            <a
-              href="#download"
-              class="inline-block px-6 py-3 gradient-button text-white rounded-full font-roboto shadow-lg"
-            >
-              Get Started
-            </a>
-          </div>
-          <div class="md:w-1/2" data-aos="fade-left">
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-6 shadow-lg">
-              <i
-                data-lucide="shield"
-                class="w-16 h-16 mx-auto mb-4 text-orange-500"
-                aria-hidden="true"
-              ></i>
-              <p class="text-center text-gray-600 dark:text-gray-300 font-lato">
-                Basic AES-256 encryption for local storage, relying on your
-                device security.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Testimonials Section -->
-      <section id="testimonials" class="py-16 bg-gray-100 dark:bg-gray-800">
-        <div class="container mx-auto px-4">
-          <h2
-            class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white"
-            data-aos="fade-up"
-          >
-            What Users Are Saying
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div
-              class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <p class="text-gray-600 dark:text-gray-300 mb-4 font-lato italic">
-                "K.Y.S gives me the control I need to manage my passwords
-                securely on my own terms."
-              </p>
-              <p class="text-gray-900 dark:text-white font-bold">— Sarah M.</p>
-            </div>
-            <div
-              class="bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <p class="text-gray-600 dark:text-gray-300 mb-4 font-lato italic">
-                "I appreciate the simplicity and the reminder that my security
-                is my responsibility."
-              </p>
-              <p class="text-gray-900 dark:text-white font-bold">— James T.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      </section23
 
       <!-- Download Section -->
       <section
@@ -619,14 +626,14 @@
       >
         <div class="container mx-auto px-4" data-aos="zoom-in">
           <h2 class="text-4xl font-bold mb-4 text-gray-900 dark:text-white">
-            Take Control of Your Security
+            Try the K.Y.S Prototype
           </h2>
           <p
             class="text-lg text-gray-600 dark:text-gray-300 mb-8 font-lato max-w-2xl mx-auto"
           >
-            Download K.Y.S Password Manager and manage your passwords with basic
-            encryption. Your security, your responsibility—ensure your device is
-            protected.
+            Download the K.Y.S Password Manager prototype to experience our
+            usability-focused design. Ensure your device is secure, as K.Y.S
+            relies on local encryption and your system’s protections.
           </p>
           <button
             data-download-link="https://www.dropbox.com/scl/fi/71l015pbawrwgf2zwpmfx/K.Y.S-Password-Manager-Setup-2.0.0.exe?rlkey=el807d5a6ystfoz8v7geu549x&st=kmhlw4lx&dl=1"
@@ -635,15 +642,6 @@
           >
             Download for Windows
           </button>
-          <p
-            class="text-sm text-gray-500 dark:text-gray-400 mt-4 font-lato max-w-2xl mx-auto"
-          >
-            K.Y.S Password Manager provides basic local encryption for your
-            passwords. Ensure your PC is secure, as this app does not use a
-            master password for access.<br />
-            <strong>SHA-256 Checksum:</strong> [Your checksum here] (Verify the
-            file after downloading to ensure it matches.)
-          </p>
         </div>
       </section>
     </main>
@@ -660,26 +658,34 @@
                 src="public/assets/images/logo.png"
                 alt="K.Y.S Password Manager Logo"
                 class="h-8 mr-2"
+                loading="lazy"
               />
               <span class="text-xl font-bold text-white">K.Y.S</span>
             </div>
-            <p class="font-lato">Your security, your responsibility.</p>
+            <p class="font-lato">A student-led project in usability and security.</p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-4 text-white">Links</h3>
             <ul class="space-y-2">
               <li>
                 <a
-                  href="#features"
+                  href="#project"
                   class="hover:text-orange-500 transition duration-200 font-roboto"
-                  >Features</a
+                  >Project</a
                 >
               </li>
               <li>
                 <a
-                  href="#security"
+                  href="src/components/usability-testing.html"
                   class="hover:text-orange-500 transition duration-200 font-roboto"
-                  >Security</a
+                  >Usability Testing</a
+                >
+              </li>
+              <li>
+                <a
+                  href="src/components/team.html"
+                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  >Team</a
                 >
               </li>
               <li>
@@ -692,25 +698,20 @@
             </ul>
           </div>
           <div>
-            <h3 class="text-lg font-bold mb-4 text-white">Legal</h3>
+            <h3 class="text-lg font-bold mb-4 text-white">Connect</h3>
             <ul class="space-y-2">
               <li>
                 <a
-                  href="#"
+                  href="https://github.com/kys-project"
                   class="hover:text-orange-500 transition duration-200 font-roboto"
-                  >Privacy Policy</a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >GitHub Repository</a
                 >
               </li>
               <li>
                 <a
-                  href="#"
-                  class="hover:text-orange-500 transition duration-200 font-roboto"
-                  >Terms of Service</a
-                >
-              </li>
-              <li>
-                <a
-                  href="/cdn-cgi/l/email-protection#f68f99838ad59d95999b9ef69b869b978a969fd89f989a"
+                  href="mailto:contact@kys-project.com"
                   class="hover:text-orange-500 transition duration-200 font-roboto"
                   >Contact Us</a
                 >
@@ -719,16 +720,12 @@
           </div>
         </div>
         <p class="text-center mt-8 font-lato">
-          © 2025 K.Y.S Password Manager. All rights reserved.
+          © 2025 K.Y.S Password Manager Project. All rights reserved.
         </p>
       </div>
     </footer>
 
     <!-- JavaScript -->
-    <script
-      data-cfasync="false"
-      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
-    ></script>
     <script src="src/scripts/main.js"></script>
     <script src="src/scripts/theme-toggle.js"></script>
     <script src="src/scripts/typed-animation.js"></script>
@@ -792,41 +789,6 @@
       mobileThemeToggle.addEventListener("click", () => {
         document.getElementById("theme-toggle").click();
       });
-    </script>
-    <script>
-      (function () {
-        function c() {
-          var b = a.contentDocument || a.contentWindow.document;
-          if (b) {
-            var d = b.createElement("script");
-            d.innerHTML =
-              "window.__CF$cv$params={r:'9356cea64eecb0d9',t:'MTc0NTUxMDM2MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
-            b.getElementsByTagName("head")[0].appendChild(d);
-          }
-        }
-        if (document.body) {
-          var a = document.createElement("iframe");
-          a.height = 1;
-          a.width = 1;
-          a.style.position = "absolute";
-          a.style.top = 0;
-          a.style.left = 0;
-          a.style.border = "none";
-          a.style.visibility = "hidden";
-          document.body.appendChild(a);
-          if ("loading" !== document.readyState) c();
-          else if (window.addEventListener)
-            document.addEventListener("DOMContentLoaded", c);
-          else {
-            var e = document.onreadystatechange || function () {};
-            document.onreadystatechange = function (b) {
-              e(b);
-              "loading" !== document.readyState &&
-                ((document.onreadystatechange = e), c());
-            };
-          }
-        }
-      })();
     </script>
   </body>
 </html>

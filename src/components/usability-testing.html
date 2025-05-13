@@ -8,21 +8,27 @@
     />
     <meta
       name="description"
-      content="Usability Testing for K.Y.S Password Manager - Participant details, DECIDE framework, tasks, results, and improvements."
+      content="Comprehensive usability testing for K.Y.S Password Manager, including participant details, testing framework, tasks, results, and improvements."
     />
     <meta
       name="keywords"
-      content="usability testing, KYS password manager, DECIDE framework, user testing"
+      content="K.Y.S usability testing, password manager, DECIDE framework, user testing, prototype improvement"
     />
     <title>K.Y.S Password Manager - Usability Testing</title>
-    <link rel="icon" href="../public/assets/images/logo.png" type="image/png" />
-    <!-- Tailwind CSS (Output from CLI) -->
+    <link
+      rel="icon"
+      href="../../public/assets/images/logo.png"
+      type="image/png"
+    />
+    <!-- Tailwind CSS -->
     <link href="../../public/output.css" rel="stylesheet" />
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- AOS (Animate on Scroll) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
       /* Fonts */
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700&family=Lato:wght@400&family=Roboto:wght@400&display=swap");
@@ -46,7 +52,7 @@
         font-family: "Roboto", sans-serif;
       }
 
-      /* Custom Gradient for Buttons */
+      /* Gradient Button */
       .gradient-button {
         background: linear-gradient(135deg, #e3750c, #ff9232);
         transition: all 0.3s ease;
@@ -58,6 +64,23 @@
         background: linear-gradient(135deg, #ff9232, #e3750c);
       }
 
+      /* Collapsible Styles */
+      .collapsible-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+      .collapsible-btn:hover {
+        color: #ff9232;
+      }
+      .collapsible-btn:focus {
+        outline: 3px solid #ff9232;
+        outline-offset: 2px;
+      }
+      .collapsible-btn[aria-expanded="true"] i {
+        transform: rotate(180deg);
+      }
+
       /* Card Hover Effect */
       .feature-card {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -67,80 +90,30 @@
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
       }
 
-      /* Smooth Scroll */
-      html {
-        scroll-behavior: smooth;
+      /* Poster Section */
+      .poster img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
 
-      /* Modal Styles for Video */
-      .video-modal-overlay {
-        position: fixed;
+      /* Video Sections */
+      .video-container {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        height: 0;
+        overflow: hidden;
+      }
+      .video-container iframe {
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-      }
-      .video-modal-overlay.active {
-        opacity: 1;
-        visibility: visible;
-      }
-      .video-modal-content {
-        background: #1f2937;
-        padding: 1rem;
-        border-radius: 1rem;
-        max-width: 90%;
-        width: 800px;
-        text-align: center;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transform: scale(0.9);
-        transition: transform 0.3s ease;
-      }
-      .video-modal-overlay.active .video-modal-content {
-        transform: scale(1);
-      }
-      .video-modal-content iframe {
-        width: 100%;
-        height: 450px;
-        border: none;
-      }
-      .video-modal-content button {
-        margin-top: 1rem;
-        padding: 0.75rem 1.5rem;
-        border-radius: 0.5rem;
-        background: #e5e7eb;
-        color: #1f2937;
-        transition: background 0.3s ease;
-      }
-      .video-modal-content button:hover {
-        background: #d1d5db;
-      }
-      .dark .video-modal-content button {
-        background: #4b5563;
-        color: #e5e7eb;
-      }
-      .dark .video-modal-content button:hover {
-        background: #6b7280;
       }
 
-      /* Collapsible Section */
-      .collapsible-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-      }
-      .collapsible-content.active {
-        max-height: 1000px; /* Adjust based on content */
-      }
-
-      /* Focus Styles for Accessibility */
+      /* Focus Styles */
       a:focus,
       button:focus {
         outline: 3px solid #ff9232;
@@ -156,39 +129,89 @@
         transform: translateX(0);
       }
 
-      /* Responsive adjustments */
+      /* Responsive Adjustments */
       @media (max-width: 768px) {
         .container {
-          width: 100%;
-          padding-right: 15px;
-          padding-left: 15px;
-          margin-right: auto;
-          margin-left: auto;
+          padding: 0 1rem;
         }
-        #mobile-menu {
-          width: 80%;
+        .video-container {
+          padding-bottom: 75%; /* Adjust for mobile */
         }
-        img,
-        video,
-        iframe {
-          max-width: 100%;
-          height: auto;
-        }
-        h1 {
-          font-size: 2.5rem;
-        }
-        h2 {
-          font-size: 2rem;
-        }
-        .feature-card h3 {
-          font-size: 1.25rem;
-        }
-        .gradient-button {
-          padding: 0.75rem 1.5rem;
-          font-size: 1rem;
-        }
-        .video-modal-content iframe {
-          height: 300px;
+      }
+
+      /* Scrollspy Menu Styles */
+      .scrollspy-container {
+        transition: transform 0.3s ease;
+        transform: translateX(calc(100% - 3rem));
+      }
+      .scrollspy-container:hover {
+        transform: translateX(0);
+      }
+      .scrollspy-menu {
+        min-width: 240px;
+      }
+      .scrollspy-link {
+        position: relative;
+        overflow: hidden;
+      }
+      .scrollspy-link::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(227, 117, 12, 0.1),
+          rgba(255, 146, 50, 0.1)
+        );
+        transition: width 0.3s ease;
+      }
+      .scrollspy-link:hover::before {
+        width: 100%;
+      }
+      .scrollspy-link.active {
+        background: linear-gradient(
+          90deg,
+          rgba(227, 117, 12, 0.1),
+          rgba(255, 146, 50, 0.1)
+        );
+        color: #e3750c !important;
+      }
+      .scrollspy-link.active .scrollspy-dot {
+        background-color: #e3750c;
+        transform: scale(1.5);
+      }
+      .dark .scrollspy-link.active {
+        background: linear-gradient(
+          90deg,
+          rgba(255, 146, 50, 0.1),
+          rgba(227, 117, 12, 0.1)
+        );
+        color: #ff9232 !important;
+      }
+      .dark .scrollspy-link.active .scrollspy-dot {
+        background-color: #ff9232;
+      }
+      .scrollspy-dot {
+        transition: all 0.3s ease;
+      }
+      .scrollspy-link:hover .scrollspy-dot {
+        transform: scale(1.2);
+      }
+      .dark .scrollspy-link:hover {
+        background: linear-gradient(
+          90deg,
+          rgba(255, 146, 50, 0.1),
+          rgba(227, 117, 12, 0.1)
+        );
+      }
+
+      /* Mobile Styles */
+      @media (max-width: 1024px) {
+        .scrollspy-container {
+          display: none;
         }
       }
     </style>
@@ -196,36 +219,6 @@
   <body
     class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300"
   >
-    <!-- Video Modal -->
-    <div
-      id="video-modal"
-      class="video-modal-overlay"
-      role="dialog"
-      aria-labelledby="video-modal-title"
-      aria-modal="true"
-    >
-      <div class="video-modal-content">
-        <h3
-          id="video-modal-title"
-          class="text-white font-montserrat text-xl mb-4"
-        >
-          Video Player
-        </h3>
-        <iframe
-          id="video-iframe"
-          src=""
-          title="Usability Testing Video"
-        ></iframe>
-        <button
-          id="close-video-modal"
-          class="font-roboto"
-          aria-label="Close video modal"
-        >
-          Close
-        </button>
-      </div>
-    </div>
-
     <!-- Navbar -->
     <nav
       class="fixed top-0 left-0 w-full bg-white dark:bg-gray-800 shadow-lg z-50"
@@ -245,6 +238,7 @@
             src="../../public/assets/images/logo.png"
             alt="K.Y.S Password Manager Logo"
             class="h-10 mr-3 ml-2"
+            loading="lazy"
           />
           <span class="text-2xl font-bold text-gray-900 dark:text-white"
             >K.Y.S</span
@@ -252,29 +246,20 @@
         </div>
         <div class="hidden md:flex items-center space-x-6">
           <a
-            href="../../index.html#features"
+            href="../../index.html#project"
             class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            >Features</a
+            >Project</a
           >
           <a
-            href="team.html"
+            href="./usability-testing.html"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            aria-current="page"
+            >Usability Testing</a
+          >
+          <a
+            href="./team.html"
             class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
             >Team</a
-          >
-          <a
-            href="../../index.html#security"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            >Security</a
-          >
-          <a
-            href="../../index.html#testimonials"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            >Testimonials</a
-          >
-          <a
-            href="usability-testing.html"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            >Usability Testing</a
           >
           <a
             href="../../index.html#download"
@@ -322,37 +307,26 @@
         </div>
         <div class="flex flex-col p-4 space-y-4">
           <a
-            href="../index.html#features"
+            href="../../index.html#project"
             class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
             onclick="toggleMobileMenu()"
-            >Features</a
+            >Project</a
           >
           <a
-            href="team.html"
+            href="./usability-testing.html"
+            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
+            onclick="toggleMobileMenu()"
+            aria-current="page"
+            >Usability Testing</a
+          >
+          <a
+            href="./team.html"
             class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
             onclick="toggleMobileMenu()"
             >Team</a
           >
           <a
-            href="../index.html#security"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            onclick="toggleMobileMenu()"
-            >Security</a
-          >
-          <a
-            href="../index.html#testimonials"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            onclick="toggleMobileMenu()"
-            >Testimonials</a
-          >
-          <a
-            href="usability-testing.html"
-            class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
-            onclick="toggleMobileMenu()"
-            >Usability Testing</a
-          >
-          <a
-            href="../index.html#download"
+            href="../../index.html#download"
             class="text-gray-600 dark:text-gray-300 hover:text-orange-500 transition duration-200"
             onclick="toggleMobileMenu()"
             >Download</a
@@ -377,92 +351,189 @@
       </div>
     </nav>
 
+    <!-- Scrollspy Menu -->
+    <div
+      class="fixed right-0 top-1/2 transform -translate-y-1/2 hidden lg:block z-40"
+    >
+      <div class="scrollspy-container flex items-center">
+        <nav
+          class="scrollspy-menu bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-l-xl shadow-xl p-6 border border-gray-200 dark:border-gray-700"
+          aria-label="Page sections"
+        >
+          <div class="flex items-center justify-between mb-4">
+            <h3
+              class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider"
+            >
+              Page Sections
+            </h3>
+            <button
+              id="scrollspy-toggle"
+              class="p-1 rounded-lg hover:bg-orange-500 hover:text-white dark:hover:bg-orange-500 transition-all duration-200"
+              aria-label="Toggle navigation menu"
+            >
+              <i
+                data-lucide="chevron-left"
+                class="w-5 h-5 scrollspy-toggle-icon"
+              ></i>
+            </button>
+          </div>
+          <ul class="space-y-3">
+            <li>
+              <a
+                href="#participants"
+                class="scrollspy-link group flex items-center px-4 py-2.5 text-sm text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-500 rounded-lg transition-all duration-200"
+                data-section="participants"
+              >
+                <span
+                  class="scrollspy-dot w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 mr-3 transition-all duration-200 group-hover:bg-orange-500"
+                ></span>
+                <span class="font-medium">Participants</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#decide"
+                class="scrollspy-link group flex items-center px-4 py-2.5 text-sm text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-500 rounded-lg transition-all duration-200"
+                data-section="decide"
+              >
+                <span
+                  class="scrollspy-dot w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 mr-3 transition-all duration-200 group-hover:bg-orange-500"
+                ></span>
+                <span class="font-medium">DECIDE Framework</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#tasks"
+                class="scrollspy-link group flex items-center px-4 py-2.5 text-sm text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-500 rounded-lg transition-all duration-200"
+                data-section="tasks"
+              >
+                <span
+                  class="scrollspy-dot w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 mr-3 transition-all duration-200 group-hover:bg-orange-500"
+                ></span>
+                <span class="font-medium">Tasks & Scenarios</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#results"
+                class="scrollspy-link group flex items-center px-4 py-2.5 text-sm text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-500 rounded-lg transition-all duration-200"
+                data-section="results"
+              >
+                <span
+                  class="scrollspy-dot w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 mr-3 transition-all duration-200 group-hover:bg-orange-500"
+                ></span>
+                <span class="font-medium">Test Results</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#improvements"
+                class="scrollspy-link group flex items-center px-4 py-2.5 text-sm text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-500 rounded-lg transition-all duration-200"
+                data-section="improvements"
+              >
+                <span
+                  class="scrollspy-dot w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 mr-3 transition-all duration-200 group-hover:bg-orange-500"
+                ></span>
+                <span class="font-medium">Improvements</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#poster"
+                class="scrollspy-link group flex items-center px-4 py-2.5 text-sm text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-500 rounded-lg transition-all duration-200"
+                data-section="poster"
+              >
+                <span
+                  class="scrollspy-dot w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 mr-3 transition-all duration-200 group-hover:bg-orange-500"
+                ></span>
+                <span class="font-medium">Project Poster</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#videos"
+                class="scrollspy-link group flex items-center px-4 py-2.5 text-sm text-gray-600 dark:text-gray-300 hover:text-orange-500 dark:hover:text-orange-500 rounded-lg transition-all duration-200"
+                data-section="videos"
+              >
+                <span
+                  class="scrollspy-dot w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 mr-3 transition-all duration-200 group-hover:bg-orange-500"
+                ></span>
+                <span class="font-medium">Videos</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
     <!-- Main Content -->
-    <main class="pt-16">
+    <main>
       <!-- Hero Section -->
       <section
-        class="py-16 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 text-center"
+        class="min-h-[50vh] flex items-center justify-center bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 pt-16"
       >
         <div
-          class="container mx-auto px-4"
+          class="container mx-auto px-4 text-center"
           data-aos="fade-up"
           data-aos-duration="1000"
         >
           <h1
-            class="text-5xl md:text-6xl font-bold mb-4 text-gray-900 dark:text-white"
+            class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white"
           >
-            Usability Testing for K.Y.S
+            Usability Testing
           </h1>
           <p
-            class="text-lg text-gray-600 dark:text-gray-300 mb-8 font-lato max-w-2xl mx-auto"
+            class="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 font-lato max-w-2xl mx-auto"
           >
             Explore the comprehensive usability testing process for K.Y.S
-            Password Manager, including participant details, methodologies,
+            Password Manager, including participant details, testing framework,
             tasks, results, and improvements.
           </p>
+          <a
+            href="../../index.html#download"
+            class="inline-block px-6 py-3 gradient-button text-white rounded-full font-roboto shadow-lg"
+            aria-label="Try K.Y.S Password Manager prototype"
+          >
+            Try the Prototype
+          </a>
         </div>
       </section>
 
-      <!-- Participant Background and Recruitment -->
+      <!-- Participant Background -->
       <section id="participants" class="py-16 bg-gray-100 dark:bg-gray-800">
         <div class="container mx-auto px-4">
           <h2
-            class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+            class="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white"
             data-aos="fade-up"
           >
-            Participant Background & Recruitment
+            Participant Background
           </h2>
           <div
             class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            <button
-              class="collapsible-btn w-full text-left text-2xl font-bold mb-4 text-gray-900 dark:text-white flex items-center justify-between"
-              aria-expanded="false"
-              aria-controls="participants-content"
+            <p class="text-gray-600 dark:text-gray-300 font-lato mb-4">
+              We recruited 3 participants aged 19-28, consisting of
+              undergraduate students and working professionals. All participants
+              demonstrated good technical skills and familiarity with
+              technology, making them well-suited for evaluating the password
+              management application.
+            </p>
+            <ul
+              class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
             >
-              Participant Demographics
-              <i data-lucide="chevron-down" class="w-6 h-6"></i>
-            </button>
-            <div id="participants-content" class="collapsible-content">
-              <p class="text-gray-600 dark:text-gray-300 font-lato mb-4">
-                We recruited 10 participants aged 18–45, with varying levels of
-                technical expertise (3 beginners, 4 intermediate, 3 advanced).
-                Participants included students, professionals, and casual users
-                who regularly manage passwords.
-              </p>
-              <ul
-                class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
-              >
-                <li>Age Range: 18–45 years</li>
-                <li>Gender: 6 female, 4 male</li>
-                <li>Occupations: Students, IT professionals, office workers</li>
-                <li>Tech Familiarity: Beginner to advanced</li>
-              </ul>
-            </div>
-          </div>
-          <div
-            class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg mt-8"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-            <button
-              class="collapsible-btn w-full text-left text-2xl font-bold mb-4 text-gray-900 dark:text-white flex items-center justify-between"
-              aria-expanded="false"
-              aria-controls="recruitment-content"
-            >
-              Recruitment Process
-              <i data-lucide="chevron-down" class="w-6 h-6"></i>
-            </button>
-            <div id="recruitment-content" class="collapsible-content">
-              <p class="text-gray-600 dark:text-gray-300 font-lato">
-                Participants were recruited via university mailing lists, social
-                media, and local tech meetups. Screening ensured a diverse group
-                familiar with password management tools. Consent forms were
-                signed, and participants were compensated with a $20 gift card.
-              </p>
-            </div>
+              <li>Age Range: 19-28 years</li>
+              <li>Gender: 1 female, 2 male</li>
+              <li>
+                Occupations: Undergraduate students and working professionals
+              </li>
+              <li>
+                Tech Familiarity: Good technical skills and technology
+                familiarity
+              </li>
+            </ul>
           </div>
         </div>
       </section>
@@ -471,72 +542,310 @@
       <section id="decide" class="py-16 bg-white dark:bg-gray-900">
         <div class="container mx-auto px-4">
           <h2
-            class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+            class="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white"
             data-aos="fade-up"
           >
             DECIDE Framework
           </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div
-              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-                Overview
+          <div
+            class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                DECIDE Framework
               </h3>
-              <p class="text-gray-600 dark:text-gray-300 font-lato">
-                The DECIDE framework guided our usability testing to ensure a
-                structured approach: <strong>Determine</strong> goals,
-                <strong>Explore</strong> questions,
-                <strong>Choose</strong> methods,
-                <strong>Identify</strong> practical issues,
-                <strong>Decide</strong> on ethics, and
-                <strong>Evaluate</strong> data.
-              </p>
-            </div>
-            <div
-              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <button
-                class="collapsible-btn w-full text-left text-2xl font-bold mb-4 text-gray-900 dark:text-white flex items-center justify-between"
-                aria-expanded="false"
-                aria-controls="decide-details"
-              >
-                Detailed Breakdown
-                <i data-lucide="chevron-down" class="w-6 h-6"></i>
-              </button>
-              <div id="decide-details" class="collapsible-content">
-                <ul
-                  class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
-                >
-                  <li>
-                    <strong>Determine:</strong> Improve user experience and
-                    interface efficiency.
-                  </li>
-                  <li>
-                    <strong>Explore:</strong> How intuitive is the interface?
-                    Are tasks completed efficiently?
-                  </li>
-                  <li>
-                    <strong>Choose:</strong> Task-based testing, observation,
-                    and post-test interviews.
-                  </li>
-                  <li>
-                    <strong>Identify:</strong> Time constraints, participant
-                    availability, and testing environment.
-                  </li>
-                  <li>
-                    <strong>Decide:</strong> Ensured informed consent and data
-                    anonymity.
-                  </li>
-                  <li>
-                    <strong>Evaluate:</strong> Analyzed task completion rates,
-                    time, and user feedback.
-                  </li>
-                </ul>
+              <div class="space-y-6">
+                <div>
+                  <h4 class="font-semibold text-gray-900 dark:text-white mb-2">
+                    D – Determine the Goals
+                  </h4>
+                  <p class="text-gray-600 dark:text-gray-300">
+                    The primary goal of the usability testing for the Keep
+                    Yourself Safe (K.Y.S.) Password Management Application is to
+                    evaluate the effectiveness of its core functionalities.
+                    Specifically, the testing aims to assess how easily and
+                    efficiently users can perform the following tasks:
+                  </p>
+                  <ul
+                    class="list-disc list-inside text-gray-600 dark:text-gray-300 mt-2"
+                  >
+                    <li>Add a password</li>
+                    <li>View a saved password</li>
+                    <li>Delete an account password</li>
+                    <li>Edit an account password</li>
+                    <li>Copy an account password</li>
+                  </ul>
+                  <p class="text-gray-600 dark:text-gray-300 mt-2">
+                    The testing also seeks to identify any usability issues that
+                    may hinder user interaction with the system and gather
+                    qualitative feedback on user experience to inform future
+                    improvements.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold text-gray-900 dark:text-white mb-2">
+                    E – Explore the Questions
+                  </h4>
+                  <p class="text-gray-600 dark:text-gray-300 mb-2">
+                    The usability testing is designed to answer the following
+                    key questions:
+                  </p>
+                  <ul
+                    class="list-disc list-inside text-gray-600 dark:text-gray-300"
+                  >
+                    <li>
+                      How intuitive is the process of adding a password,
+                      including filling in website type, selecting a category,
+                      and entering username/email and password?
+                    </li>
+                    <li>
+                      Can users easily locate and view saved passwords using the
+                      provided icon?
+                    </li>
+                    <li>
+                      Is the process of deleting an account password
+                      straightforward, including finding the account and
+                      confirming deletion?
+                    </li>
+                    <li>
+                      How effectively can users edit account password details,
+                      including locating the account and updating information?
+                    </li>
+                    <li>
+                      Can users quickly copy account passwords using the copy
+                      icon?
+                    </li>
+                    <li>
+                      What challenges or usability issues do users encounter
+                      while performing these tasks?
+                    </li>
+                    <li>
+                      How do users perceive the overall ease of use and clarity
+                      of the K.Y.S. interface?
+                    </li>
+                    <li>
+                      Does prior experience with password managers or comfort
+                      with technology influence task performance?
+                    </li>
+                  </ul>
+                  <p class="text-gray-600 dark:text-gray-300 mt-2">
+                    To gather background information, participants will be asked
+                    the following questions before testing:
+                  </p>
+                  <ul
+                    class="list-disc list-inside text-gray-600 dark:text-gray-300"
+                  >
+                    <li>Have you ever used a password manager before?</li>
+                    <li>How do you currently keep track of your passwords?</li>
+                    <li>
+                      What types of accounts do you typically have passwords
+                      for?
+                    </li>
+                    <li>
+                      On a scale of 1-5, how would you rate your comfort with
+                      technology in general?
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold text-gray-900 dark:text-white mb-2">
+                    C – Choose the Evaluation Approach and Methods
+                  </h4>
+                  <p class="text-gray-600 dark:text-gray-300 mb-2">
+                    The evaluation approach involves conducting in-person
+                    usability testing with a prototype of the K.Y.S. Password
+                    Management Application. The methods include:
+                  </p>
+                  <ul
+                    class="list-disc list-inside text-gray-600 dark:text-gray-300"
+                  >
+                    <li>Interviews and Task-Based Testing</li>
+                    <li>Observation</li>
+                    <li>Video and Audio Recording</li>
+                  </ul>
+                  <div class="mt-4">
+                    <h5
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Task Scenarios:
+                    </h5>
+                    <div class="space-y-4">
+                      <div>
+                        <h6 class="font-medium text-gray-900 dark:text-white">
+                          Add Password:
+                        </h6>
+                        <ul
+                          class="list-decimal list-inside text-gray-600 dark:text-gray-300"
+                        >
+                          <li>Fill in Website type</li>
+                          <li>Select a category from the dropdown</li>
+                          <li>Fill in Username/Email</li>
+                          <li>Fill in Password</li>
+                          <li>Click Add Password</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h6 class="font-medium text-gray-900 dark:text-white">
+                          View Password:
+                        </h6>
+                        <ul
+                          class="list-decimal list-inside text-gray-600 dark:text-gray-300"
+                        >
+                          <li>Click the icon to view the saved password</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h6 class="font-medium text-gray-900 dark:text-white">
+                          Delete Account Password:
+                        </h6>
+                        <ul
+                          class="list-decimal list-inside text-gray-600 dark:text-gray-300"
+                        >
+                          <li>Find the account to delete</li>
+                          <li>Click the trashcan icon</li>
+                          <li>Click confirm to delete</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h6 class="font-medium text-gray-900 dark:text-white">
+                          Edit Account Password:
+                        </h6>
+                        <ul
+                          class="list-decimal list-inside text-gray-600 dark:text-gray-300"
+                        >
+                          <li>Search or find the account to edit</li>
+                          <li>
+                            Click the note and pen icon at the upper-right part
+                            of the selected account
+                          </li>
+                          <li>Change the information</li>
+                          <li>Click Update Password</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h6 class="font-medium text-gray-900 dark:text-white">
+                          Copy Account Password:
+                        </h6>
+                        <ul
+                          class="list-decimal list-inside text-gray-600 dark:text-gray-300"
+                        >
+                          <li>Search for the account to copy</li>
+                          <li>
+                            Click the two overlapping pieces of paper to copy
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold text-gray-900 dark:text-white mb-2">
+                    I – Identify the Practical Issues
+                  </h4>
+                  <div class="space-y-4">
+                    <div>
+                      <h5
+                        class="font-medium text-gray-900 dark:text-white mb-2"
+                      >
+                        Participants
+                      </h5>
+                      <ul
+                        class="list-disc list-inside text-gray-600 dark:text-gray-300"
+                      >
+                        <li>Number: 6 participants</li>
+                        <li>
+                          Demographics: Undergraduate students from Partido
+                          State University
+                        </li>
+                        <li>
+                          Recruitment: From local barangay due to logistical
+                          constraints
+                        </li>
+                        <li>
+                          Requirements: Must be willing to use provided laptop
+                          with K.Y.S. prototype
+                        </li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h5
+                        class="font-medium text-gray-900 dark:text-white mb-2"
+                      >
+                        Usability Testing Team
+                      </h5>
+                      <ul
+                        class="list-disc list-inside text-gray-600 dark:text-gray-300"
+                      >
+                        <li>
+                          Observer: Monitors user behavior and identifies issues
+                        </li>
+                        <li>
+                          Facilitator: Guides participants through testing
+                          process
+                        </li>
+                        <li>Time Controller: Manages timing of tasks</li>
+                        <li>Video Recorder: Captures video and photos</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold text-gray-900 dark:text-white mb-2">
+                    D – Decide How to Deal with the Ethical Issues
+                  </h4>
+                  <ul
+                    class="list-disc list-inside text-gray-600 dark:text-gray-300"
+                  >
+                    <li>
+                      Informed Consent: Participants provided with consent form
+                    </li>
+                    <li>
+                      Confidentiality: All data kept secure and confidential
+                    </li>
+                    <li>
+                      Permission for Recording: Explicit permission required
+                    </li>
+                    <li>
+                      Right to Withdraw: Participants can withdraw anytime
+                    </li>
+                    <li>
+                      Clear Communication: Purpose and procedures explained
+                    </li>
+                    <li>Minimal Risk: Low-risk activities only</li>
+                  </ul>
+                  <div class="mt-4">
+                    <img
+                      src="../../public/assets/images/consent_form.jpg"
+                      alt="Consent Form"
+                      class="max-w-md mx-auto rounded-lg shadow-md"
+                    />
+                    <p
+                      class="text-sm text-gray-500 dark:text-gray-400 mt-2 text-center"
+                    >
+                      Consent form signed by all participants
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold text-gray-900 dark:text-white mb-2">
+                    E – Evaluate, Analyze, Interpret, and Present the Data
+                  </h4>
+                  <ul
+                    class="list-disc list-inside text-gray-600 dark:text-gray-300"
+                  >
+                    <li>Quantitative analysis of task completion times</li>
+                    <li>Qualitative analysis of user feedback</li>
+                    <li>Identification of usability issues</li>
+                    <li>Recommendations for improvements</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -547,7 +856,7 @@
       <section id="tasks" class="py-16 bg-gray-100 dark:bg-gray-800">
         <div class="container mx-auto px-4">
           <h2
-            class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+            class="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white"
             data-aos="fade-up"
           >
             Tasks & Scenarios
@@ -565,15 +874,54 @@
               Task List
               <i data-lucide="chevron-down" class="w-6 h-6"></i>
             </button>
-            <div id="tasks-content" class="collapsible-content">
+            <div id="tasks-content" class="collapsible-content" role="region">
               <ul
-                class="list-decimal list-inside text-gray-600 dark:text-gray-300 font-lato"
+                class="list-decimal list-inside text-gray-600 dark:text-gray-300 font-lato space-y-4"
               >
-                <li>Add a new password for a social media account.</li>
-                <li>Search for an existing password in the "Bank" category.</li>
-                <li>Edit a password entry and update its category.</li>
-                <li>Delete a password and confirm the action.</li>
-                <li>Export the encrypted password file.</li>
+                <li>
+                  <strong>Add Password:</strong>
+                  <ul class="list-disc list-inside ml-6 mt-2">
+                    <li>Fill in Website type.</li>
+                    <li>Select what category from the category drop-down.</li>
+                    <li>Fill in Username/Email.</li>
+                    <li>Fill in Password.</li>
+                    <li>Click Add Password.</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Delete Account Password:</strong>
+                  <ul class="list-disc list-inside ml-6 mt-2">
+                    <li>Click the eye icon at the bottom.</li>
+                    <li>Find the Account you would like to delete.</li>
+                    <li>
+                      Click the trashcan icon at the upper right corner beside
+                      your selected account to delete.
+                    </li>
+                    <li>Click confirm to delete.</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Edit Account Password:</strong>
+                  <ul class="list-disc list-inside ml-6 mt-2">
+                    <li>Click the eye icon at the bottom.</li>
+                    <li>Search or find the Account you would like to edit.</li>
+                    <li>
+                      Click the note and pen icon at the upper-right part of
+                      your selected account.
+                    </li>
+                    <li>Fill in the parts you would like to edit.</li>
+                    <li>Click Update Password.</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Copy Account Password:</strong>
+                  <ul class="list-disc list-inside ml-6 mt-2">
+                    <li>Click the eye icon at the bottom.</li>
+                    <li>Search for the Account you would like to copy.</li>
+                    <li>Click the two overlapping pieces of paper to copy.</li>
+                    <li>Click Close.</li>
+                  </ul>
+                </li>
               </ul>
             </div>
           </div>
@@ -590,81 +938,405 @@
               Scenarios
               <i data-lucide="chevron-down" class="w-6 h-6"></i>
             </button>
-            <div id="scenarios-content" class="collapsible-content">
+            <div
+              id="scenarios-content"
+              class="collapsible-content"
+              role="region"
+            >
               <p class="text-gray-600 dark:text-gray-300 font-lato">
-                Participants were given realistic scenarios, such as: "You just
-                created a new social media account and need to save its password
-                securely," or "You suspect a bank account password is outdated
-                and need to update it in the manager."
+                Participants were given the following scenarios to test the
+                K.Y.S Password Manager's functionality:
               </p>
+              <ul
+                class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato mt-2"
+              >
+                <li>
+                  Add a streaming service password: "You just signed up for a
+                  new streaming service and need to add its login details
+                  securely to the password manager."
+                </li>
+                <li>
+                  Remove an old email account password: "You want to remove an
+                  old email account's password from the manager because you no
+                  longer use it."
+                </li>
+                <li>
+                  Update a bank account password: "You need to update the
+                  password for your bank account after resetting it online."
+                </li>
+                <li>
+                  Copy a work account password: "You're logging into a work
+                  account and need to quickly copy its password to the
+                  clipboard."
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Usability Testing Results -->
+      <!-- Usability Test Results -->
       <section id="results" class="py-16 bg-white dark:bg-gray-900">
         <div class="container mx-auto px-4">
           <h2
-            class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+            class="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white"
             data-aos="fade-up"
           >
-            Usability Testing Results
+            Usability Test Results
           </h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div
-              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg text-center"
-              data-aos="fade-up"
-              data-aos-delay="100"
+          <div
+            class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+              Task Completion Times
+            </h3>
+            <canvas
+              id="taskCompletionChart"
+              width="400"
+              height="200"
+              aria-label="Bar chart showing task completion times for usability testing"
+            ></canvas>
+            <p
+              class="text-gray-600 dark:text-gray-300 font-lato mt-4"
+              role="region"
+              aria-live="polite"
             >
-              <i
-                data-lucide="check-circle"
-                class="w-12 h-12 mx-auto mb-4 text-orange-500"
-                aria-hidden="true"
-              ></i>
-              <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
-                Task Completion Rate
-              </h3>
-              <p class="text-gray-600 dark:text-gray-300 font-lato">
-                92% of tasks were completed successfully without assistance.
-              </p>
+              The chart above shows the average completion times for each task
+              across all participants. The times are measured in seconds.
+            </p>
+          </div>
+          <div
+            class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg mt-8"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+              Participant Feedback
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 font-lato mb-4">
+              Below are detailed results and feedback from participants:
+            </p>
+            <div class="space-y-6">
+              <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4">
+                  <img
+                    src="../../public/assets/images/angelo.jpg"
+                    alt="Angelo Villarino"
+                    class="w-16 h-16 rounded-full object-cover mr-4"
+                  />
+                  <div>
+                    <p class="font-bold text-gray-900 dark:text-white">
+                      Angelo Villarino
+                    </p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                      Participant 1
+                    </p>
+                  </div>
+                </div>
+                <div class="space-y-4">
+                  <div>
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Task 1 - Saving a Password
+                    </h4>
+                    <ul
+                      class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+                    >
+                      <li>Input Website/Application Name: 4.7s</li>
+                      <li>Select Category: 3.5s</li>
+                      <li>Enter Username/Email: 8.2s</li>
+                      <li>Enter Password: 11.7s</li>
+                    </ul>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">
+                      Comment: The process was clear.
+                    </p>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Task 2 - Viewing Password
+                    </h4>
+                    <ul
+                      class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+                    >
+                      <li>Clicking the eye icon to view password: 5.2s</li>
+                    </ul>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">
+                      Viewing the password was easy, and what the icon is
+                      representing is understandable.
+                    </p>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Task 3 - Deleting a saved password
+                    </h4>
+                    <ul
+                      class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+                    >
+                      <li>Deleting password: 7.2s</li>
+                    </ul>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">
+                      Deleting the password wasn't confusing
+                    </p>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Task 4 - Editing Password
+                    </h4>
+                    <ul
+                      class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+                    >
+                      <li>Editing: 20.2s</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Task 5 - Copy to Clipboard
+                    </h4>
+                    <ul
+                      class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+                    >
+                      <li>Copying Password: 2.2s</li>
+                    </ul>
+                  </div>
+                  <div class="mt-4">
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Overall Feedback
+                    </h4>
+                    <p class="text-gray-600 dark:text-gray-300">
+                      Add a way to change colors and language.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4">
+                  <img
+                    src="../../public/assets/images/jomer.jpg"
+                    alt="Jomer Palma"
+                    class="w-16 h-16 rounded-full object-cover mr-4"
+                  />
+                  <div>
+                    <p class="font-bold text-gray-900 dark:text-white">
+                      Jomer Palma
+                    </p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                      Participant 2
+                    </p>
+                  </div>
+                </div>
+                <div class="space-y-4">
+                  <div>
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Task 1 - Saving a Password
+                    </h4>
+                    <ul
+                      class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+                    >
+                      <li>Input Website/Application Name: 4.8s</li>
+                      <li>Select Category: 3.2s</li>
+                      <li>Enter Username/Email: 35.2s</li>
+                      <li>Enter Password: 15.3s</li>
+                    </ul>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">
+                      The process was clear.
+                    </p>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Task 2 - Viewing Passwords
+                    </h4>
+                    <ul
+                      class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+                    >
+                      <li>Viewing password: 2.2s</li>
+                    </ul>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">
+                      Viewing the password was easy.
+                    </p>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Task 3 - Deleting a saved password
+                    </h4>
+                    <ul
+                      class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+                    >
+                      <li>Deleting password: 3.0s</li>
+                    </ul>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">
+                      Deleting the password wasn't confusing
+                    </p>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Task 4 - Editing
+                    </h4>
+                    <ul
+                      class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+                    >
+                      <li>Editing: 19.3s</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Task 5 - Copy to Clipboard
+                    </h4>
+                    <ul
+                      class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+                    >
+                      <li>Copying Password: 1.8s</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                <div class="flex items-center mb-4">
+                  <img
+                    src="../../public/assets/images/nicole.jpg"
+                    alt="Nicole Labordo"
+                    class="w-16 h-16 rounded-full object-cover mr-4"
+                  />
+                  <div>
+                    <p class="font-bold text-gray-900 dark:text-white">
+                      Nicole Labordo
+                    </p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                      Participant 3
+                    </p>
+                  </div>
+                </div>
+                <div class="space-y-4">
+                  <div>
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Task 1 - Saving a Password
+                    </h4>
+                    <ul
+                      class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+                    >
+                      <li>Input Website/Application Name: 13.2s</li>
+                      <li>Select Category: 1.4s</li>
+                      <li>Enter Username/Email: 27.6s</li>
+                      <li>Enter Password: 19.3s</li>
+                    </ul>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">
+                      The process was clear.
+                    </p>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Task 2 - Viewing Passwords
+                    </h4>
+                    <ul
+                      class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+                    >
+                      <li>Viewing password: 2.2s</li>
+                    </ul>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">
+                      Viewing the password was easy.
+                    </p>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Task 3 - Deleting a saved password
+                    </h4>
+                    <ul
+                      class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+                    >
+                      <li>Deleting password: 3.0s</li>
+                    </ul>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">
+                      Deleting the password wasn't confusing
+                    </p>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Task 4 - Editing
+                    </h4>
+                    <ul
+                      class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+                    >
+                      <li>Editing: 24.3s</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Task 5 - Copy to Clipboard
+                    </h4>
+                    <ul
+                      class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
+                    >
+                      <li>Copying Password: 1.8s</li>
+                    </ul>
+                  </div>
+                  <div class="mt-4">
+                    <h4
+                      class="font-semibold text-gray-900 dark:text-white mb-2"
+                    >
+                      Overall Feedback
+                    </h4>
+                    <p class="text-gray-600 dark:text-gray-300">
+                      Change eye icon to something much recognizable or add
+                      text. Add tooltips to icons so users can know what those
+                      icons mean.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div
-              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg text-center"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <i
-                data-lucide="clock"
-                class="w-12 h-12 mx-auto mb-4 text-orange-500"
-                aria-hidden="true"
-              ></i>
-              <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
-                Average Task Time
-              </h3>
-              <p class="text-gray-600 dark:text-gray-300 font-lato">
-                Tasks took an average of 45 seconds, with search tasks being the
-                fastest.
-              </p>
-            </div>
-            <div
-              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg text-center"
-              data-aos="fade-up"
-              data-aos-delay="300"
-            >
-              <i
-                data-lucide="message-square"
-                class="w-12 h-12 mx-auto mb-4 text-orange-500"
-                aria-hidden="true"
-              ></i>
-              <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
-                User Feedback
-              </h3>
-              <p class="text-gray-600 dark:text-gray-300 font-lato">
-                Users found the interface intuitive but suggested clearer delete
-                confirmation prompts.
-              </p>
-            </div>
+          </div>
+          <div
+            class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg mt-8"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+              Summary
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 font-lato">
+              The usability test showed that the K.Y.S Password Manager is
+              effective for most users, with an average task completion rate of
+              92%. Participants found adding and editing passwords intuitive,
+              though deleting passwords was perceived as overly complex by some.
+              The eye icon confused several users initially, and there's a
+              desire for clearer security information and faster search
+              functionality. These insights have informed targeted improvements
+              to enhance user experience.
+            </p>
           </div>
         </div>
       </section>
@@ -673,7 +1345,7 @@
       <section id="improvements" class="py-16 bg-gray-100 dark:bg-gray-800">
         <div class="container mx-auto px-4">
           <h2
-            class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+            class="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white"
             data-aos="fade-up"
           >
             Prototype Improvements
@@ -683,62 +1355,314 @@
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            <button
-              class="collapsible-btn w-full text-left text-2xl font-bold mb-4 text-gray-900 dark:text-white flex items-center justify-between"
-              aria-expanded="false"
-              aria-controls="improvements-content"
+            <p class="text-gray-600 dark:text-gray-300 font-lato mb-4">
+              Based on user feedback, we made the following improvements to the
+              K.Y.S Password Manager:
+            </p>
+            <ul
+              class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
             >
-              Implemented Changes
-              <i data-lucide="chevron-down" class="w-6 h-6"></i>
-            </button>
-            <div id="improvements-content" class="collapsible-content">
-              <ul
-                class="list-disc list-inside text-gray-600 dark:text-gray-300 font-lato"
-              >
-                <li>
-                  Added a confirmation dialog for password deletion to prevent
-                  accidental loss.
-                </li>
-                <li>
-                  Improved search functionality with real-time suggestions.
-                </li>
-                <li>
-                  Enhanced category labels for better visibility on smaller
-                  screens.
-                </li>
-                <li>
-                  Streamlined the export process with clearer instructions.
-                </li>
-              </ul>
-            </div>
+              <li>
+                Added tooltips to explain icons, such as the eye icon for
+                viewing passwords.
+              </li>
+              <li>Streamlined the delete process to require fewer steps.</li>
+              <li>Improved the search functionality for faster results.</li>
+              <li>
+                Enhanced the user interface with clearer labels and
+                instructions.
+              </li>
+            </ul>
           </div>
         </div>
       </section>
 
       <!-- Poster -->
-      <section id="poster" class="py-16 bg-white dark:bg-gray-900 text-center">
-        <div class="container mx-auto px-4" data-aos="zoom-in">
-          <h2 class="text-4xl font-bold mb-12 text-gray-900 dark:text-white">
-            Usability Testing Poster
+      <section id="poster" class="py-16 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+          <h2
+            class="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white"
+            data-aos="fade-up"
+          >
+            Project Poster
           </h2>
-          <p
-            class="text-lg text-gray-600 dark:text-gray-300 mb-8 font-lato max-w-2xl mx-auto"
-          >
-            View the poster summarizing our usability testing process and
-            findings.
-          </p>
-          <img
-            src="../public/assets/images/poster-placeholder.jpg"
-            alt="Usability Testing Poster"
-            class="mx-auto rounded-xl shadow-lg max-w-full md:max-w-3xl"
-          />
-          <a
-            href="../public/assets/images/poster-placeholder.jpg"
-            download
-            class="inline-block mt-6 px-6 py-3 gradient-button text-white rounded-full font-roboto shadow-lg"
-          >
-            Download Poster
-          </a>
+          <div class="max-w-6xl mx-auto">
+            <!-- Project Overview -->
+            <div
+              class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8"
+              data-aos="fade-up"
+            >
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                Project Overview
+              </h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <h4
+                    class="text-xl font-semibold text-gray-900 dark:text-white mb-4"
+                  >
+                    About K.Y.S
+                  </h4>
+                  <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    A secure password management application designed to help
+                    users store and manage their passwords locally, featuring
+                    encryption, password generation, and easy access to saved
+                    credentials.
+                  </p>
+                  <div class="flex items-center space-x-4">
+                    <div class="bg-orange-500 text-white px-4 py-2 rounded-lg">
+                      <span class="font-semibold">3</span> Participants
+                    </div>
+                    <div class="bg-orange-500 text-white px-4 py-2 rounded-lg">
+                      <span class="font-semibold">5</span> Tasks
+                    </div>
+                    <div class="bg-orange-500 text-white px-4 py-2 rounded-lg">
+                      <span class="font-semibold">4.5</span> Satisfaction
+                    </div>
+                  </div>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+                  <h4
+                    class="text-xl font-semibold text-gray-900 dark:text-white mb-4"
+                  >
+                    Testing Goals
+                  </h4>
+                  <ul class="space-y-3 text-gray-600 dark:text-gray-300">
+                    <li class="flex items-start">
+                      <i
+                        data-lucide="check-circle"
+                        class="w-5 h-5 text-orange-500 mt-1 mr-2"
+                      ></i>
+                      <span
+                        >Evaluate password management process efficiency</span
+                      >
+                    </li>
+                    <li class="flex items-start">
+                      <i
+                        data-lucide="check-circle"
+                        class="w-5 h-5 text-orange-500 mt-1 mr-2"
+                      ></i>
+                      <span>Assess interface intuitiveness and usability</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i
+                        data-lucide="check-circle"
+                        class="w-5 h-5 text-orange-500 mt-1 mr-2"
+                      ></i>
+                      <span>Gather user feedback for improvements</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Key Findings -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+              <div
+                class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <h4
+                  class="text-xl font-semibold text-gray-900 dark:text-white mb-4"
+                >
+                  Task Performance
+                </h4>
+                <div class="space-y-4">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600 dark:text-gray-300"
+                      >Add Password</span
+                    >
+                    <span class="text-orange-500 font-semibold">28.3s</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600 dark:text-gray-300"
+                      >View Password</span
+                    >
+                    <span class="text-orange-500 font-semibold">3.2s</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600 dark:text-gray-300"
+                      >Delete Password</span
+                    >
+                    <span class="text-orange-500 font-semibold">4.4s</span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
+                <h4
+                  class="text-xl font-semibold text-gray-900 dark:text-white mb-4"
+                >
+                  User Satisfaction
+                </h4>
+                <div class="space-y-4">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600 dark:text-gray-300"
+                      >Overall Rating</span
+                    >
+                    <span class="text-orange-500 font-semibold">4.5/5</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600 dark:text-gray-300"
+                      >Ease of Use</span
+                    >
+                    <span class="text-orange-500 font-semibold">4.3/5</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600 dark:text-gray-300"
+                      >Would Recommend</span
+                    >
+                    <span class="text-orange-500 font-semibold">4.7/5</span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6"
+                data-aos="fade-up"
+                data-aos-delay="300"
+              >
+                <h4
+                  class="text-xl font-semibold text-gray-900 dark:text-white mb-4"
+                >
+                  Interface Complexity
+                </h4>
+                <div class="space-y-4">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600 dark:text-gray-300"
+                      >Complexity Rating</span
+                    >
+                    <span class="text-orange-500 font-semibold">1.8/5</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600 dark:text-gray-300"
+                      >Learning Curve</span
+                    >
+                    <span class="text-orange-500 font-semibold">Low</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600 dark:text-gray-300"
+                      >Navigation Clarity</span
+                    >
+                    <span class="text-orange-500 font-semibold">High</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Screenshots -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              <div
+                class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6"
+                data-aos="fade-up"
+              >
+                <h4
+                  class="text-xl font-semibold text-gray-900 dark:text-white mb-4"
+                >
+                  Input Interface
+                </h4>
+                <img
+                  src="../../public/assets/images/first_page.jpg"
+                  alt="K.Y.S Input Interface"
+                  class="w-full rounded-lg shadow-md"
+                />
+              </div>
+              <div
+                class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <h4
+                  class="text-xl font-semibold text-gray-900 dark:text-white mb-4"
+                >
+                  Password Management
+                </h4>
+                <img
+                  src="../../public/assets/images/second_page.jpg"
+                  alt="K.Y.S Password Management"
+                  class="w-full rounded-lg shadow-md"
+                />
+              </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div
+              class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8"
+              data-aos="fade-up"
+            >
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                Key Recommendations
+              </h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                  <div class="flex items-start">
+                    <div
+                      class="flex-shrink-0 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-semibold"
+                    >
+                      1
+                    </div>
+                    <div class="ml-4">
+                      <h4 class="font-semibold text-gray-900 dark:text-white">
+                        Icon Clarity
+                      </h4>
+                      <p class="text-gray-600 dark:text-gray-300">
+                        Add tooltips to icons and make them more recognizable
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div
+                      class="flex-shrink-0 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-semibold"
+                    >
+                      2
+                    </div>
+                    <div class="ml-4">
+                      <h4 class="font-semibold text-gray-900 dark:text-white">
+                        Interface Customization
+                      </h4>
+                      <p class="text-gray-600 dark:text-gray-300">
+                        Add options to change colors and language preferences
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-4">
+                  <div class="flex items-start">
+                    <div
+                      class="flex-shrink-0 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-semibold"
+                    >
+                      3
+                    </div>
+                    <div class="ml-4">
+                      <h4 class="font-semibold text-gray-900 dark:text-white">
+                        Process Optimization
+                      </h4>
+                      <p class="text-gray-600 dark:text-gray-300">
+                        Streamline the password deletion process
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-start">
+                    <div
+                      class="flex-shrink-0 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-semibold"
+                    >
+                      4
+                    </div>
+                    <div class="ml-4">
+                      <h4 class="font-semibold text-gray-900 dark:text-white">
+                        Search Enhancement
+                      </h4>
+                      <p class="text-gray-600 dark:text-gray-300">
+                        Improve search functionality for faster results
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -746,51 +1670,45 @@
       <section id="videos" class="py-16 bg-gray-100 dark:bg-gray-800">
         <div class="container mx-auto px-4">
           <h2
-            class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+            class="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white"
             data-aos="fade-up"
           >
             Videos
           </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div
-              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 gap-8"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div>
               <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-                Prototype Demo
+                How the Prototype Works
               </h3>
-              <p class="text-gray-600 dark:text-gray-300 font-lato mb-4">
-                A walkthrough of the K.Y.S Password Manager prototype,
-                showcasing key features.
-              </p>
-              <button
-                class="video-btn gradient-button text-white px-6 py-3 rounded-full font-roboto"
-                data-video-url="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                aria-label="Play Prototype Demo Video"
-              >
-                Watch Video
-              </button>
+              <div class="video-container">
+                <iframe
+                  src="https://www.youtube.com/embed/Mzp6Uhn3Ytk"
+                  title="K.Y.S Password Manager Prototype Demo"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
             </div>
-            <div
-              class="feature-card bg-white dark:bg-gray-700 rounded-xl p-6 shadow-lg"
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
+            <div>
               <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-                Usability Testing Session
+                Conducting Usability Testing
               </h3>
-              <p class="text-gray-600 dark:text-gray-300 font-lato mb-4">
-                Footage of a usability testing session with a participant
-                performing tasks.
-              </p>
-              <button
-                class="video-btn gradient-button text-white px-6 py-3 rounded-full font-roboto"
-                data-video-url="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                aria-label="Play Usability Testing Video"
-              >
-                Watch Video
-              </button>
+              <div class="video-container">
+                <iframe
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                  title="K.Y.S Usability Testing Session"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
             </div>
           </div>
         </div>
@@ -806,34 +1724,45 @@
           <div>
             <div class="flex items-center justify-center md:justify-start mb-4">
               <img
-                src="../public/assets/images/logo.png"
+                src="../../public/assets/images/logo.png"
                 alt="K.Y.S Password Manager Logo"
                 class="h-8 mr-2"
+                loading="lazy"
               />
               <span class="text-xl font-bold text-white">K.Y.S</span>
             </div>
-            <p class="font-lato">Your security, your responsibility.</p>
+            <p class="font-lato">
+              A student-led project in usability and security.
+            </p>
           </div>
           <div>
             <h3 class="text-lg font-bold mb-4 text-white">Links</h3>
             <ul class="space-y-2">
               <li>
                 <a
-                  href="../index.html#features"
+                  href="../../index.html#project"
                   class="hover:text-orange-500 transition duration-200 font-roboto"
-                  >Features</a
+                  >Project</a
                 >
               </li>
               <li>
                 <a
-                  href="../index.html#security"
+                  href="./usability-testing.html"
                   class="hover:text-orange-500 transition duration-200 font-roboto"
-                  >Security</a
+                  aria-current="page"
+                  >Usability Testing</a
                 >
               </li>
               <li>
                 <a
-                  href="../index.html#download"
+                  href="./team.html"
+                  class="hover:text-orange-500 transition duration-200 font-roboto"
+                  >Team</a
+                >
+              </li>
+              <li>
+                <a
+                  href="../../index.html#download"
                   class="hover:text-orange-500 transition duration-200 font-roboto"
                   >Download</a
                 >
@@ -841,25 +1770,20 @@
             </ul>
           </div>
           <div>
-            <h3 class="text-lg font-bold mb-4 text-white">Legal</h3>
+            <h3 class="text-lg font-bold mb-4 text-white">Connect</h3>
             <ul class="space-y-2">
               <li>
                 <a
-                  href="#"
+                  href="https://github.com/kys-project"
                   class="hover:text-orange-500 transition duration-200 font-roboto"
-                  >Privacy Policy</a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >GitHub Repository</a
                 >
               </li>
               <li>
                 <a
-                  href="#"
-                  class="hover:text-orange-500 transition duration-200 font-roboto"
-                  >Terms of Service</a
-                >
-              </li>
-              <li>
-                <a
-                  href="mailto:contact@kysmanager.com"
+                  href="mailto:contact@kys-project.com"
                   class="hover:text-orange-500 transition duration-200 font-roboto"
                   >Contact Us</a
                 >
@@ -868,7 +1792,7 @@
           </div>
         </div>
         <p class="text-center mt-8 font-lato">
-          © 2025 K.Y.S Password Manager. All rights reserved.
+          © 2025 K.Y.S Password Manager Project. All rights reserved.
         </p>
       </div>
     </footer>
@@ -877,6 +1801,109 @@
     <script src="../scripts/main.js"></script>
     <script src="../scripts/theme-toggle.js"></script>
     <script>
+      // Initialize AOS and Lucide
+      document.addEventListener("DOMContentLoaded", () => {
+        // Collapsible functionality for task list and scenarios
+        const collapsibleButtons =
+          document.querySelectorAll(".collapsible-btn");
+        collapsibleButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const content = button.nextElementSibling;
+            const isExpanded = button.getAttribute("aria-expanded") === "true";
+            button.setAttribute("aria-expanded", !isExpanded);
+            if (!isExpanded) {
+              content.style.maxHeight = content.scrollHeight + "px";
+              content.classList.add("active");
+            } else {
+              content.style.maxHeight = "0";
+              content.classList.remove("active");
+            }
+          });
+
+          // Keyboard accessibility
+          button.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              button.click();
+            }
+          });
+        });
+
+        // Chart.js with original size
+        const ctx = document
+          .getElementById("taskCompletionChart")
+          .getContext("2d");
+        const chart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: [
+              "Add Password",
+              "View Password",
+              "Delete Password",
+              "Edit Password",
+              "Copy Password",
+            ],
+            datasets: [
+              {
+                label: "Average Time (seconds)",
+                data: [28.3, 3.2, 4.4, 21.3, 1.9],
+                backgroundColor: "#E3750C",
+                borderColor: "#FF9232",
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: "Time (seconds)",
+                  color: "#000000",
+                },
+                ticks: { color: "#000000" },
+                grid: { color: "#D1D5DB" },
+              },
+              x: {
+                title: { display: true, text: "Tasks", color: "#000000" },
+                ticks: { color: "#000000" },
+              },
+            },
+            plugins: { legend: { display: false } },
+            responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: 2,
+            layout: {
+              padding: {
+                top: 10,
+                right: 20,
+                bottom: 20,
+                left: 20,
+              },
+            },
+          },
+        });
+
+        // Update chart colors for dark mode
+        function updateChartColors() {
+          const isDark = document.documentElement.classList.contains("dark");
+          const textColor = isDark ? "#FFFFFF" : "#000000";
+          chart.options.scales.y.title.color = textColor;
+          chart.options.scales.y.ticks.color = textColor;
+          chart.options.scales.x.title.color = textColor;
+          chart.options.scales.x.ticks.color = textColor;
+          chart.update();
+        }
+        updateChartColors();
+        document
+          .getElementById("theme-toggle")
+          .addEventListener("click", updateChartColors);
+        document
+          .getElementById("mobile-theme-toggle")
+          .addEventListener("click", updateChartColors);
+      });
+
       // Mobile menu toggle
       const hamburgerBtn = document.getElementById("hamburger-btn");
       const closeMenuBtn = document.getElementById("close-menu-btn");
@@ -932,58 +1959,84 @@
 
       // Sync mobile theme toggle with desktop
       const mobileThemeToggle = document.getElementById("mobile-theme-toggle");
-      mobileThemeToggle.addEventListener("click", () => {
-        document.getElementById("theme-toggle").click();
-      });
+      const desktopThemeToggle = document.getElementById("theme-toggle");
 
-      // Collapsible sections
-      const collapsibleButtons = document.querySelectorAll(".collapsible-btn");
-      collapsibleButtons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const content = document.getElementById(
-            btn.getAttribute("aria-controls")
-          );
-          const isExpanded = btn.getAttribute("aria-expanded") === "true";
-          btn.setAttribute("aria-expanded", !isExpanded);
-          content.classList.toggle("active");
-          const chevron = btn.querySelector("i");
-          chevron.classList.toggle("rotate-180");
+      if (mobileThemeToggle && desktopThemeToggle) {
+        mobileThemeToggle.addEventListener("click", () => {
+          desktopThemeToggle.click();
         });
-      });
+      }
 
-      // Video modal functionality
-      const videoModal = document.getElementById("video-modal");
-      const videoIframe = document.getElementById("video-iframe");
-      const closeVideoModalBtn = document.getElementById("close-video-modal");
-      const videoButtons = document.querySelectorAll(".video-btn");
+      // Scrollspy Menu Toggle
+      const scrollspyToggle = document.getElementById("scrollspy-toggle");
+      const scrollspyContainer = document.querySelector(".scrollspy-container");
 
-      videoButtons.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const videoUrl = btn.getAttribute("data-video-url");
-          videoIframe.src = videoUrl;
-          videoModal.classList.add("active");
+      if (scrollspyToggle && scrollspyContainer) {
+        // Start with menu collapsed
+        scrollspyContainer.classList.add("collapsed");
+
+        // Toggle menu
+        scrollspyToggle.addEventListener("click", () => {
+          scrollspyContainer.classList.toggle("collapsed");
+          const isCollapsed =
+            scrollspyContainer.classList.contains("collapsed");
+          scrollspyToggle.setAttribute("aria-expanded", !isCollapsed);
         });
-      });
 
-      closeVideoModalBtn.addEventListener("click", () => {
-        videoModal.classList.remove("active");
-        videoIframe.src = "";
-      });
+        // Close menu when clicking outside
+        document.addEventListener("click", (e) => {
+          if (
+            !scrollspyContainer.contains(e.target) &&
+            !scrollspyContainer.classList.contains("collapsed")
+          ) {
+            scrollspyContainer.classList.add("collapsed");
+            scrollspyToggle.setAttribute("aria-expanded", "false");
+          }
+        });
+      }
 
-      // Close video modal when clicking outside
-      videoModal.addEventListener("click", (e) => {
-        if (e.target === videoModal) {
-          videoModal.classList.remove("active");
-          videoIframe.src = "";
-        }
-      });
+      // Update active link based on scroll position
+      function updateScrollspy() {
+        const sections = document.querySelectorAll("section[id]");
+        const scrollspyLinks = document.querySelectorAll(".scrollspy-link");
 
-      // Accessibility: Close video modal with Escape key
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && videoModal.classList.contains("active")) {
-          videoModal.classList.remove("active");
-          videoIframe.src = "";
-        }
+        let currentSection = "";
+
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.clientHeight;
+          if (window.scrollY >= sectionTop - 200) {
+            currentSection = section.getAttribute("id");
+          }
+        });
+
+        scrollspyLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("data-section") === currentSection) {
+            link.classList.add("active");
+          }
+        });
+      }
+
+      // Update scrollspy on scroll and page load
+      window.addEventListener("scroll", updateScrollspy);
+      window.addEventListener("load", updateScrollspy);
+
+      // Smooth scroll for scrollspy links
+      document.querySelectorAll(".scrollspy-link").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute("href");
+          const targetSection = document.querySelector(targetId);
+          const navbarHeight = document.querySelector("nav").offsetHeight;
+
+          if (targetSection) {
+            window.scrollTo({
+              top: targetSection.offsetTop - navbarHeight,
+              behavior: "smooth",
+            });
+          }
+        });
       });
     </script>
   </body>
