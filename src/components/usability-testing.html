@@ -70,6 +70,18 @@
         overflow: hidden;
         transition: max-height 0.3s ease;
       }
+      .collapsible-btn {
+        cursor: pointer;
+        position: relative;
+        width: 100%;
+        text-align: left;
+        padding: 1rem;
+        border: none;
+        background: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
       .collapsible-btn:hover {
         color: #ff9232;
       }
@@ -79,6 +91,14 @@
       }
       .collapsible-btn[aria-expanded="true"] i {
         transform: rotate(180deg);
+      }
+      .collapsible-section {
+        cursor: pointer;
+        border-radius: 0.75rem;
+        transition: all 0.3s ease;
+      }
+      .collapsible-section:hover {
+        background-color: rgba(255, 146, 50, 0.1);
       }
 
       /* Card Hover Effect */
@@ -130,12 +150,33 @@
       }
 
       /* Responsive Adjustments */
+      @media (max-width: 1280px) {
+        .scrollspy-container {
+          transform: translateX(calc(100% - 2rem));
+        }
+        .scrollspy-menu {
+          min-width: 200px;
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .scrollspy-container {
+          display: none;
+        }
+        .container {
+          padding: 0 1.5rem;
+        }
+      }
+
       @media (max-width: 768px) {
         .container {
           padding: 0 1rem;
         }
         .video-container {
-          padding-bottom: 75%; /* Adjust for mobile */
+          padding-bottom: 75%;
+        }
+        .feature-card {
+          padding: 1rem;
         }
       }
 
@@ -143,12 +184,18 @@
       .scrollspy-container {
         transition: transform 0.3s ease;
         transform: translateX(calc(100% - 3rem));
+        position: fixed;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 40;
       }
       .scrollspy-container:hover {
-        transform: translateX(0);
+        transform: translateX(0) translateY(-50%);
       }
       .scrollspy-menu {
         min-width: 240px;
+        max-width: 300px;
       }
       .scrollspy-link {
         position: relative;
@@ -2569,13 +2616,21 @@
       // Initialize AOS and Lucide
       document.addEventListener("DOMContentLoaded", () => {
         // Collapsible functionality for task list and scenarios
-        const collapsibleButtons =
-          document.querySelectorAll(".collapsible-btn");
-        collapsibleButtons.forEach((button) => {
-          button.addEventListener("click", () => {
-            const content = button.nextElementSibling;
+        const collapsibleSections = document.querySelectorAll(".feature-card");
+        collapsibleSections.forEach((section) => {
+          const button = section.querySelector(".collapsible-btn");
+          const content = section.querySelector(".collapsible-content");
+
+          // Make entire section clickable
+          section.addEventListener("click", (e) => {
+            // Don't trigger if clicking on a link or button inside the content
+            if (e.target.tagName === "A" || e.target.tagName === "BUTTON") {
+              return;
+            }
+
             const isExpanded = button.getAttribute("aria-expanded") === "true";
             button.setAttribute("aria-expanded", !isExpanded);
+
             if (!isExpanded) {
               content.style.maxHeight = content.scrollHeight + "px";
               content.classList.add("active");
@@ -2589,7 +2644,7 @@
           button.addEventListener("keydown", (e) => {
             if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();
-              button.click();
+              section.click();
             }
           });
         });
@@ -2667,6 +2722,81 @@
         document
           .getElementById("mobile-theme-toggle")
           .addEventListener("click", updateChartColors);
+
+        // Scrollspy Menu Toggle
+        const scrollspyToggle = document.getElementById("scrollspy-toggle");
+        const scrollspyContainer = document.querySelector(
+          ".scrollspy-container"
+        );
+
+        if (scrollspyToggle && scrollspyContainer) {
+          // Start with menu collapsed
+          scrollspyContainer.classList.add("collapsed");
+
+          // Toggle menu
+          scrollspyToggle.addEventListener("click", (e) => {
+            e.stopPropagation(); // Prevent event from bubbling up
+            scrollspyContainer.classList.toggle("collapsed");
+            const isCollapsed =
+              scrollspyContainer.classList.contains("collapsed");
+            scrollspyToggle.setAttribute("aria-expanded", !isCollapsed);
+          });
+
+          // Close menu when clicking outside
+          document.addEventListener("click", (e) => {
+            if (
+              !scrollspyContainer.contains(e.target) &&
+              !scrollspyContainer.classList.contains("collapsed")
+            ) {
+              scrollspyContainer.classList.add("collapsed");
+              scrollspyToggle.setAttribute("aria-expanded", "false");
+            }
+          });
+        }
+
+        // Update active link based on scroll position
+        function updateScrollspy() {
+          const sections = document.querySelectorAll("section[id]");
+          const scrollspyLinks = document.querySelectorAll(".scrollspy-link");
+
+          let currentSection = "";
+
+          sections.forEach((section) => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (window.scrollY >= sectionTop - 200) {
+              currentSection = section.getAttribute("id");
+            }
+          });
+
+          scrollspyLinks.forEach((link) => {
+            link.classList.remove("active");
+            if (link.getAttribute("data-section") === currentSection) {
+              link.classList.add("active");
+            }
+          });
+        }
+
+        // Update scrollspy on scroll and page load
+        window.addEventListener("scroll", updateScrollspy);
+        window.addEventListener("load", updateScrollspy);
+
+        // Smooth scroll for scrollspy links
+        document.querySelectorAll(".scrollspy-link").forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute("href");
+            const targetSection = document.querySelector(targetId);
+            const navbarHeight = document.querySelector("nav").offsetHeight;
+
+            if (targetSection) {
+              window.scrollTo({
+                top: targetSection.offsetTop - navbarHeight,
+                behavior: "smooth",
+              });
+            }
+          });
+        });
       });
 
       // Mobile menu toggle
@@ -2731,78 +2861,6 @@
           desktopThemeToggle.click();
         });
       }
-
-      // Scrollspy Menu Toggle
-      const scrollspyToggle = document.getElementById("scrollspy-toggle");
-      const scrollspyContainer = document.querySelector(".scrollspy-container");
-
-      if (scrollspyToggle && scrollspyContainer) {
-        // Start with menu collapsed
-        scrollspyContainer.classList.add("collapsed");
-
-        // Toggle menu
-        scrollspyToggle.addEventListener("click", () => {
-          scrollspyContainer.classList.toggle("collapsed");
-          const isCollapsed =
-            scrollspyContainer.classList.contains("collapsed");
-          scrollspyToggle.setAttribute("aria-expanded", !isCollapsed);
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener("click", (e) => {
-          if (
-            !scrollspyContainer.contains(e.target) &&
-            !scrollspyContainer.classList.contains("collapsed")
-          ) {
-            scrollspyContainer.classList.add("collapsed");
-            scrollspyToggle.setAttribute("aria-expanded", "false");
-          }
-        });
-      }
-
-      // Update active link based on scroll position
-      function updateScrollspy() {
-        const sections = document.querySelectorAll("section[id]");
-        const scrollspyLinks = document.querySelectorAll(".scrollspy-link");
-
-        let currentSection = "";
-
-        sections.forEach((section) => {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.clientHeight;
-          if (window.scrollY >= sectionTop - 200) {
-            currentSection = section.getAttribute("id");
-          }
-        });
-
-        scrollspyLinks.forEach((link) => {
-          link.classList.remove("active");
-          if (link.getAttribute("data-section") === currentSection) {
-            link.classList.add("active");
-          }
-        });
-      }
-
-      // Update scrollspy on scroll and page load
-      window.addEventListener("scroll", updateScrollspy);
-      window.addEventListener("load", updateScrollspy);
-
-      // Smooth scroll for scrollspy links
-      document.querySelectorAll(".scrollspy-link").forEach((link) => {
-        link.addEventListener("click", (e) => {
-          e.preventDefault();
-          const targetId = link.getAttribute("href");
-          const targetSection = document.querySelector(targetId);
-          const navbarHeight = document.querySelector("nav").offsetHeight;
-
-          if (targetSection) {
-            window.scrollTo({
-              top: targetSection.offsetTop - navbarHeight,
-              behavior: "smooth",
-            });
-          }
-        });
-      });
     </script>
   </body>
 </html>
